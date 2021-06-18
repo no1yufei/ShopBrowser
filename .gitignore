@@ -3,3 +3,12 @@
 ################################################################################
 
 /bin/x86/Debug
+/Common/bin
+/Common/obj
+/CommonData/bin
+/CommonData/obj
+/packages
+/ServerData/bin
+/ServerData/obj
+/ShopBrowser/bin/x86/测试
+/ShopBrowser/obj

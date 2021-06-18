@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.props" Condition="Exists('..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.props')" />
+  <Import Project="..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.props')" />
+  <Import Project="..\packages\cef.redist.x86.79.1.36\build\cef.redist.x86.props" Condition="Exists('..\packages\cef.redist.x86.79.1.36\build\cef.redist.x86.props')" />
+  <Import Project="..\packages\cef.redist.x64.79.1.36\build\cef.redist.x64.props" Condition="Exists('..\packages\cef.redist.x64.79.1.36\build\cef.redist.x64.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{87C88AF6-9EC7-4F2C-80B4-E30C64916208}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Common</RootNamespace>
+    <AssemblyName>Common</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '新测试|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\新测试\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '新测试|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\新测试\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '新测试|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\新测试\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.8.6\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.6.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.6.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.29.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.29\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.2.0.246, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.2.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJSON, Version=0.14.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LitJson.0.14.1\lib\net45\LitJSON.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="MySql.Data, Version=8.0.17.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.17\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.5.2.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.5.2\lib\net45\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.5.2.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.5.2\lib\net45\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.5.2.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.5.2\lib\net45\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.5.2.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.2.5.2\lib\net45\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Browser\CefKeyboardHandler.cs" />
+    <Compile Include="Browser\Interaction.cs" />
+    <Compile Include="Browser\PopBrowerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Browser\PopBrowerForm.Designer.cs">
+      <DependentUpon>PopBrowerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Browser\Settings.Designer.cs">
+      <DependentUpon>Settings.settings</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Browser\StoreBrowser.cs" />
+    <Compile Include="Collector\Parser.cs" />
+    <Compile Include="Collector\ParserHotProduct.cs" />
+    <Compile Include="Collector\ParserPdd.cs" />
+    <Compile Include="Collector\ProdFormater\AliProdFormat.cs" />
+    <Compile Include="Collector\ProdFormater\PddProdFormat.cs" />
+    <Compile Include="Collector\ProdFormater\ProdFormat.cs" />
+    <Compile Include="Collector\ProdFormater\ProdFormatTextTool.cs" />
+    <Compile Include="Collector\ProdFormater\TaobaoProdFormat.cs" />
+    <Compile Include="Collector\ProdFormater\TianmaoProdFormat.cs" />
+    <Compile Include="Collector\ParserProductInfo.cs" />
+    <Compile Include="Collector\ProdFormater\WxwProdFormat.cs" />
+    <Compile Include="Collector\ProductUploader.cs" />
+    <Compile Include="Collector\T1688\Parser1688.cs" />
+    <Compile Include="DA\DA.cs" />
+    <Compile Include="DA\DAApi.cs" />
+    <Compile Include="DA\DAWorkOrder.cs" />
+    <Compile Include="HttpHelper\HttpCookieHelper.cs" />
+    <Compile Include="HttpHelper\HttpHelper.cs" />
+    <Compile Include="Infterface\AppPlugBase.cs" />
+    <Compile Include="Infterface\IAppPlug.cs" />
+    <Compile Include="Infterface\IBilling.cs" />
+    <Compile Include="Net\ClassHttp.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Shopee\API\Data\BundleDealsInfos.cs" />
+    <Compile Include="Shopee\API\Data\Discount\DicountItem.cs" />
+    <Compile Include="Shopee\API\Data\FinanceInfo.cs" />
+    <Compile Include="Shopee\API\Data\MarketingInfo.cs" />
+    <Compile Include="Shopee\API\Data\BuyerBriefInfo.cs" />
+    <Compile Include="Shopee\API\Data\PenaltyInfo.cs" />
+    <Compile Include="Shopee\API\Data\ProductShowInfo.cs" />
+    <Compile Include="Shopee\API\Data\Product\CurrencyRateInfo.cs" />
+    <Compile Include="Shopee\API\Data\Product\LogisticsChannelsStatus.cs" />
+    <Compile Include="Shopee\API\Data\Product\ProductCateAttributes.cs" />
+    <Compile Include="Shopee\API\Data\Product\ProductCreateInfo.cs" />
+    <Compile Include="Shopee\API\Data\Product\ProductCreateResult.cs" />
+    <Compile Include="Shopee\API\Data\Product\ProductInfoConstraints.cs" />
+    <Compile Include="Shopee\API\Data\Product\ProductInfoFeatureConfigs.cs" />
+    <Compile Include="Shopee\API\Data\Product\ProductLeafCatePath.cs" />
+    <Compile Include="Shopee\API\Data\Product\ProductRecommedCateInfo.cs" />
+    <Compile Include="Shopee\API\Data\Product\ProductSubCategoryInfo.cs" />
+    <Compile Include="Shopee\API\Data\ReturnInfo.cs" />
+    <Compile Include="Shopee\API\Data\SearchHintData.cs" />
+    <Compile Include="Shopee\API\Data\ShopCustomersInfo.cs" />
+    <Compile Include="Shopee\API\Data\ShopeeCateTrans.cs" />
+    <Compile Include="Shopee\API\Data\ShopOrderIds.cs" />
+    <Compile Include="Shopee\API\Data\ShopOrderInfoV3.cs" />
+    <Compile Include="Shopee\API\Data\ShopOrderLogistics.cs" />
+    <Compile Include="Shopee\API\Data\ShopOrderTransaction.cs" />
+    <Compile Include="Shopee\API\Data\UserDetailInfo.cs" />
+    <Compile Include="Shopee\API\Data\UserDetailInfoReponse.cs" />
+    <Compile Include="Shopee\API\Data\CodeMessage.cs" />
+    <Compile Include="Shopee\API\FinanceAPI.cs" />
+    <Compile Include="Shopee\API\MarketingAPI.cs" />
+    <Compile Include="Shopee\API\Data\VersionMessage.cs" />
+    <Compile Include="Shopee\API\PenaltyAPI.cs" />
+    <Compile Include="Shopee\API\ProductCreateAPI.cs" />
+    <Compile Include="Shopee\API\BuyerAPI.cs" />
+    <Compile Include="Shopee\API\UserAPI.cs" />
+    <Compile Include="Shopee\API\APITemplate.cs" />
+    <Compile Include="Shopee\API\BoostAPI.cs" />
+    <Compile Include="Shopee\API\Data\ChatMessageInfo.cs" />
+    <Compile Include="Shopee\API\Data\RecommendProductInfo.cs" />
+    <Compile Include="Shopee\API\Data\RecommendProductInfoReponse.cs" />
+    <Compile Include="Shopee\API\Data\DataTemplate.cs" />
+    <Compile Include="Shopee\API\Data\HotSearchWords.cs" />
+    <Compile Include="Shopee\API\Data\Product\ProductDetailBaseInfo.cs" />
+    <Compile Include="Shopee\API\Data\Product\ProductDetailInfo.cs" />
+    <Compile Include="Shopee\API\Data\Product\ResponseProductRequest.cs" />
+    <Compile Include="Shopee\API\Data\Product\ProductItem.cs" />
+    <Compile Include="Shopee\API\Data\Product\ProductPageListInfo.cs" />
+    <Compile Include="Shopee\API\Data\Product\ProductStatisticalData.cs" />
+    <Compile Include="Shopee\API\Data\RatingCustomInfos.cs" />
+    <Compile Include="Shopee\API\Data\SearchedProductInfo.cs" />
+    <Compile Include="Shopee\API\Data\ShopCustomerInfo.cs" />
+    <Compile Include="Shopee\API\Data\ShopFollowerInfo.cs" />
+    <Compile Include="Shopee\API\Data\ShopInfo.cs" />
+    <Compile Include="Shopee\API\Data\ShopLogDataInfo.cs" />
+    <Compile Include="Shopee\API\Data\ShopOrderInfo.cs" />
+    <Compile Include="Shopee\API\Data\ShopSummaryInfo.cs" />
+    <Compile Include="Shopee\API\Data\TrendingSearches.cs" />
+    <Compile Include="Shopee\API\FollowAPI.cs" />
+    <Compile Include="Shopee\API\HotSearchAPI.cs" />
+    <Compile Include="Shopee\API\LikeAPI.cs" />
+    <Compile Include="Shopee\API\LogAPI.cs" />
+    <Compile Include="Shopee\API\MessageAPI.cs" />
+    <Compile Include="Shopee\API\OrderAPI.cs" />
+    <Compile Include="Shopee\API\ProductInfoAPI.cs" />
+    <Compile Include="Shopee\API\ShopInfoAPI.cs" />
+    <Compile Include="Shopee\API\ProductUpdateAPI.cs" />
+    <Compile Include="SysData\AccessControlAPI.cs" />
+    <Compile Include="SysData\GroupConfigHelper.cs" />
+    <Compile Include="SysData\PayEnum.cs" />
+    <Compile Include="SysData\Store.cs" />
+    <Compile Include="SysData\StoreGroup.cs" />
+    <Compile Include="SysData\StoreRegion.cs" />
+    <Compile Include="SysData\StoreRegionMap.cs" />
+    <Compile Include="Tools\BaiduTrans.cs" />
+    <Compile Include="Browser\BrowerHelper.cs" />
+    <Compile Include="Tools\CommandInfo.cs" />
+    <Compile Include="Tools\CookieHelper.cs" />
+    <Compile Include="Tools\CVSOperator.cs" />
+    <Compile Include="Tools\DbHelperMySQL.cs" />
+    <Compile Include="Tools\Domain.cs" />
+    <Compile Include="Tools\GoogleTrans.cs" />
+    <Compile Include="Tools\ImageHelper.cs" />
+    <Compile Include="Tools\ImageWaterMark.cs" />
+    <Compile Include="Tools\MachineInfoHelper.cs" />
+    <Compile Include="Tools\NPOIOperator.cs" />
+    <Compile Include="Tools\PDFHelper.cs" />
+    <Compile Include="Tools\TextLog.cs" />
+    <Compile Include="Tools\TextLogHelper.cs" />
+    <Compile Include="Tools\Tool.cs" />
+    <Compile Include="UI\AppPopUpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AppPopUpForm.Designer.cs">
+      <DependentUpon>AppPopUpForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\DatagridviewCheckboxHeaderCell .cs" />
+    <Compile Include="UI\DataGridViewTreeViewEditingControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\RowMergeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\RowMergeView.designer.cs">
+      <DependentUpon>RowMergeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebSocket\ByteOrder.cs" />
+    <Compile Include="WebSocket\CloseEventArgs.cs" />
+    <Compile Include="WebSocket\CloseStatusCode.cs" />
+    <Compile Include="WebSocket\CompressionMethod.cs" />
+    <Compile Include="WebSocket\ErrorEventArgs.cs" />
+    <Compile Include="WebSocket\Ext.cs" />
+    <Compile Include="WebSocket\Fin.cs" />
+    <Compile Include="WebSocket\HttpBase.cs" />
+    <Compile Include="WebSocket\HttpRequest.cs" />
+    <Compile Include="WebSocket\HttpResponse.cs" />
+    <Compile Include="WebSocket\LogData.cs" />
+    <Compile Include="WebSocket\Logger.cs" />
+    <Compile Include="WebSocket\LogLevel.cs" />
+    <Compile Include="WebSocket\Mask.cs" />
+    <Compile Include="WebSocket\MessageEventArgs.cs" />
+    <Compile Include="WebSocket\Net\AuthenticationBase.cs" />
+    <Compile Include="WebSocket\Net\AuthenticationChallenge.cs" />
+    <Compile Include="WebSocket\Net\AuthenticationResponse.cs" />
+    <Compile Include="WebSocket\Net\AuthenticationSchemes.cs" />
+    <Compile Include="WebSocket\Net\Chunk.cs" />
+    <Compile Include="WebSocket\Net\ChunkedRequestStream.cs" />
+    <Compile Include="WebSocket\Net\ChunkStream.cs" />
+    <Compile Include="WebSocket\Net\ClientSslConfiguration.cs" />
+    <Compile Include="WebSocket\Net\Cookie.cs" />
+    <Compile Include="WebSocket\Net\CookieCollection.cs" />
+    <Compile Include="WebSocket\Net\CookieException.cs" />
+    <Compile Include="WebSocket\Net\EndPointListener.cs" />
+    <Compile Include="WebSocket\Net\EndPointManager.cs" />
+    <Compile Include="WebSocket\Net\HttpBasicIdentity.cs" />
+    <Compile Include="WebSocket\Net\HttpConnection.cs" />
+    <Compile Include="WebSocket\Net\HttpDigestIdentity.cs" />
+    <Compile Include="WebSocket\Net\HttpHeaderInfo.cs" />
+    <Compile Include="WebSocket\Net\HttpHeaderType.cs" />
+    <Compile Include="WebSocket\Net\HttpListener.cs" />
+    <Compile Include="WebSocket\Net\HttpListenerAsyncResult.cs" />
+    <Compile Include="WebSocket\Net\HttpListenerContext.cs" />
+    <Compile Include="WebSocket\Net\HttpListenerException.cs" />
+    <Compile Include="WebSocket\Net\HttpListenerPrefix.cs" />
+    <Compile Include="WebSocket\Net\HttpListenerPrefixCollection.cs" />
+    <Compile Include="WebSocket\Net\HttpListenerRequest.cs" />
+    <Compile Include="WebSocket\Net\HttpListenerResponse.cs" />
+    <Compile Include="WebSocket\Net\HttpRequestHeader.cs" />
+    <Compile Include="WebSocket\Net\HttpResponseHeader.cs" />
+    <Compile Include="WebSocket\Net\HttpStatusCode.cs" />
+    <Compile Include="WebSocket\Net\HttpStreamAsyncResult.cs" />
+    <Compile Include="WebSocket\Net\HttpUtility.cs" />
+    <Compile Include="WebSocket\Net\HttpVersion.cs" />
+    <Compile Include="WebSocket\Net\InputChunkState.cs" />
+    <Compile Include="WebSocket\Net\InputState.cs" />
+    <Compile Include="WebSocket\Net\LineState.cs" />
+    <Compile Include="WebSocket\Net\NetworkCredential.cs" />
+    <Compile Include="WebSocket\Net\QueryStringCollection.cs" />
+    <Compile Include="WebSocket\Net\ReadBufferState.cs" />
+    <Compile Include="WebSocket\Net\RequestStream.cs" />
+    <Compile Include="WebSocket\Net\ResponseStream.cs" />
+    <Compile Include="WebSocket\Net\ServerSslConfiguration.cs" />
+    <Compile Include="WebSocket\Net\WebHeaderCollection.cs" />
+    <Compile Include="WebSocket\Net\WebSockets\HttpListenerWebSocketContext.cs" />
+    <Compile Include="WebSocket\Net\WebSockets\TcpListenerWebSocketContext.cs" />
+    <Compile Include="WebSocket\Net\WebSockets\WebSocketContext.cs" />
+    <Compile Include="WebSocket\Opcode.cs" />
+    <Compile Include="WebSocket\PayloadData.cs" />
+    <Compile Include="WebSocket\Rsv.cs" />
+    <Compile Include="WebSocket\Server\HttpRequestEventArgs.cs" />
+    <Compile Include="WebSocket\Server\HttpServer.cs" />
+    <Compile Include="WebSocket\Server\IWebSocketSession.cs" />
+    <Compile Include="WebSocket\Server\ServerState.cs" />
+    <Compile Include="WebSocket\Server\WebSocketBehavior.cs" />
+    <Compile Include="WebSocket\Server\WebSocketServer.cs" />
+    <Compile Include="WebSocket\Server\WebSocketServiceHost.cs" />
+    <Compile Include="WebSocket\Server\WebSocketServiceHost`1.cs" />
+    <Compile Include="WebSocket\Server\WebSocketServiceManager.cs" />
+    <Compile Include="WebSocket\Server\WebSocketSessionManager.cs" />
+    <Compile Include="WebSocket\WebSocket.cs" />
+    <Compile Include="WebSocket\WebSocketException.cs" />
+    <Compile Include="WebSocket\WebSocketFrame.cs" />
+    <Compile Include="WebSocket\WebSocketState.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Browser\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Shopee\API\Data\login.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonData\CommonData.csproj">
+      <Project>{3940785F-27F2-43D6-B064-F587E3B3E3D4}</Project>
+      <Name>CommonData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerData\ServerData.csproj">
+      <Project>{6eb5571d-1507-494b-bf2c-7957dfb52f20}</Project>
+      <Name>ServerData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Browser\PopBrowerForm.resx">
+      <DependentUpon>PopBrowerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AppPopUpForm.resx">
+      <DependentUpon>AppPopUpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\RowMergeView.resx">
+      <DependentUpon>RowMergeView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\cef.redist.x64.79.1.36\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.79.1.36\build\cef.redist.x64.props'))" />
+    <Error Condition="!Exists('..\packages\cef.redist.x86.79.1.36\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.79.1.36\build\cef.redist.x86.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.targets'))" />
+  </Target>
+  <Import Project="..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.79.1.360\build\CefSharp.Common.targets')" />
+  <Import Project="..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.targets" Condition="Exists('..\packages\CefSharp.WinForms.79.1.360\build\CefSharp.WinForms.targets')" />
+</Project>

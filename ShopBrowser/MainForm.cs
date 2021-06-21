@@ -52,13 +52,13 @@ namespace ShopeeChat
             chatSPContainer.Panel1.Controls.Add(storeTreeView);
             storeTreeView.Dock = DockStyle.Fill;
             storeTreeView.StoreSelected += LoadStoreChat;
-            splitContainer2.Panel1.Controls.Add(chatView);
+            contentSplitPannel.Panel1.Controls.Add(chatView);
             chatView.Dock = DockStyle.Fill;
 
             TextLogHelper.Instance.Initialize(logRTBox);
             Console.SetOut(TextLogHelper.Instance);
             version = AccessControl.Instance.Version;
-            this.Text = "店大麦(ShopBrowser) 版本号:" + version + " " + AccessControl.Instance.UserLeveLName();
+            //this.Text = "店大麦(ShopBrowser) 版本号:" + version + " " + AccessControl.Instance.UserLeveLName();
             loadApp();
         }
 
@@ -153,140 +153,140 @@ namespace ShopeeChat
         }
         private void loadAppMenu()
         {
-            mainToolStrip.Items.Clear();
-            //mainTabControl.TabPages.Clear();
-            //imageListTabIcon.Images.Clear();
-            foreach (IAppPlug app in appPlugs)
-            {
-                if (app.InButton)
-                {
-                    if (mainToolStrip.Items.Count > 0 && mainToolStrip.Items.Count % 3 == 0)
-                    {
-                        ToolStripSeparator toolStripSeparator = new ToolStripSeparator();
-                        toolStripSeparator.Margin = new Padding(5,0,5,0);
-                        mainToolStrip.Items.Add(toolStripSeparator);
-                    }
-                    ///加入按钮图标
-                    ToolStripButton tsBtn = new ToolStripButton();
-                    tsBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText;
-                    tsBtn.Font = new System.Drawing.Font("微软雅黑 Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-                    tsBtn.Image = app.Icon;
-                    tsBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-                    tsBtn.Name = app.Name;
-                    //tsBtn.Size = new System.Drawing.Size(44, 44);
-                    tsBtn.Text = app.Name;
-                    tsBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-                    tsBtn.Tag = app;
-                    tsBtn.Click += App_Click;
-                    mainToolStrip.Items.Add(tsBtn);
+            //mainToolStrip.Items.Clear();
+            ////mainTabControl.TabPages.Clear();
+            ////imageListTabIcon.Images.Clear();
+            //foreach (IAppPlug app in appPlugs)
+            //{
+            //    if (app.InButton)
+            //    {
+            //        if (mainToolStrip.Items.Count > 0 && mainToolStrip.Items.Count % 3 == 0)
+            //        {
+            //            ToolStripSeparator toolStripSeparator = new ToolStripSeparator();
+            //            toolStripSeparator.Margin = new Padding(5,0,5,0);
+            //            mainToolStrip.Items.Add(toolStripSeparator);
+            //        }
+            //        ///加入按钮图标
+            //        ToolStripButton tsBtn = new ToolStripButton();
+            //        tsBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText;
+            //        tsBtn.Font = new System.Drawing.Font("微软雅黑 Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            //        tsBtn.Image = app.Icon;
+            //        tsBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            //        tsBtn.Name = app.Name;
+            //        //tsBtn.Size = new System.Drawing.Size(44, 44);
+            //        tsBtn.Text = app.Name;
+            //        tsBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            //        tsBtn.Tag = app;
+            //        tsBtn.Click += App_Click;
+            //        mainToolStrip.Items.Add(tsBtn);
 
 
 
 
-                    //imageListTabIcon.Images.Add(app.Icon);
-                    //TabPage tp = new TabPage();
-                    //tp.ImageIndex = imageListTabIcon.Images.Count -1;
-                    ////tp.Location = new System.Drawing.Point(4, 68);
-                    //tp.Name = app.Name;
-                    //tp.Text = app.Name;
-                    ////tp.Padding = new System.Windows.Forms.Padding(3);
-                    ////tp.Size = new System.Drawing.Size(1404, 715);
-                    //tp.TabIndex = imageListTabIcon.Images.Count - 1;
-                    //tp.UseVisualStyleBackColor = true;
-                    //tp.Controls.Clear();
-                    //tp.Enter += Tp_Enter;
-                    //tp.Tag = app;
-                    //mainTabControl.TabPages.Add(tp);
-                }
-                if(app.InMenu)
-                {
-                    ///加入菜单栏
-                    if (app.Menu.Length > 3 && app.Menu.Contains("|") && !app.Menu.StartsWith("|"))
-                    {
-                        ToolStripItem[] firstLevelTSItems = menuStrip.Items.Find(app.Menu.Split('|')[0], false);
-                        ToolStripMenuItem firstLevelTSItem = null;
-                        if (firstLevelTSItems == null || firstLevelTSItems.Length < 1)
-                        {
-                            firstLevelTSItem = new ToolStripMenuItem(app.Menu.Split('|')[0]);
-                            firstLevelTSItem.Name = app.Menu.Split('|')[0];
+            //        //imageListTabIcon.Images.Add(app.Icon);
+            //        //TabPage tp = new TabPage();
+            //        //tp.ImageIndex = imageListTabIcon.Images.Count -1;
+            //        ////tp.Location = new System.Drawing.Point(4, 68);
+            //        //tp.Name = app.Name;
+            //        //tp.Text = app.Name;
+            //        ////tp.Padding = new System.Windows.Forms.Padding(3);
+            //        ////tp.Size = new System.Drawing.Size(1404, 715);
+            //        //tp.TabIndex = imageListTabIcon.Images.Count - 1;
+            //        //tp.UseVisualStyleBackColor = true;
+            //        //tp.Controls.Clear();
+            //        //tp.Enter += Tp_Enter;
+            //        //tp.Tag = app;
+            //        //mainTabControl.TabPages.Add(tp);
+            //    }
+            //    if(app.InMenu)
+            //    {
+            //        ///加入菜单栏
+            //        if (app.Menu.Length > 3 && app.Menu.Contains("|") && !app.Menu.StartsWith("|"))
+            //        {
+            //            ToolStripItem[] firstLevelTSItems = menuStrip.Items.Find(app.Menu.Split('|')[0], false);
+            //            ToolStripMenuItem firstLevelTSItem = null;
+            //            if (firstLevelTSItems == null || firstLevelTSItems.Length < 1)
+            //            {
+            //                firstLevelTSItem = new ToolStripMenuItem(app.Menu.Split('|')[0]);
+            //                firstLevelTSItem.Name = app.Menu.Split('|')[0];
 
-                            firstLevelTSItem.Font = new System.Drawing.Font("微软雅黑", 10F);
-                            firstLevelTSItem.Image = app.Icon;
-                            firstLevelTSItem.ImageTransparentColor = System.Drawing.Color.White;
-                            firstLevelTSItem.Size = new System.Drawing.Size(94, 28);
-                            firstLevelTSItem.Text = app.Menu.Split('|')[0]; ;
-                            menuStrip.Items.Insert(menuStrip.Items.Count -1, firstLevelTSItem);
-                        }
-                        else
-                        {
-                            firstLevelTSItem = (ToolStripMenuItem)firstLevelTSItems[0];
-                        }
+            //                firstLevelTSItem.Font = new System.Drawing.Font("微软雅黑", 10F);
+            //                firstLevelTSItem.Image = app.Icon;
+            //                firstLevelTSItem.ImageTransparentColor = System.Drawing.Color.White;
+            //                firstLevelTSItem.Size = new System.Drawing.Size(94, 28);
+            //                firstLevelTSItem.Text = app.Menu.Split('|')[0]; ;
+            //                menuStrip.Items.Insert(menuStrip.Items.Count -1, firstLevelTSItem);
+            //            }
+            //            else
+            //            {
+            //                firstLevelTSItem = (ToolStripMenuItem)firstLevelTSItems[0];
+            //            }
 
-                        ToolStripItem[] secondLevelTSItems = firstLevelTSItem.DropDownItems.Find(app.Menu.Split('|')[1], false);
-                        String secondeItemName = app.Menu.Split('|')[1];
-                        if (secondLevelTSItems != null && secondLevelTSItems.Length > 0)
-                        {
-                            secondeItemName += "[同名]" + DateTime.Now.ToShortDateString();
-                        }
-                        ToolStripMenuItem secondLevelTSItem = new ToolStripMenuItem(secondeItemName);
-                        secondLevelTSItem.Image = app.Icon;
-                        secondLevelTSItem.Name = secondeItemName;
-                        secondLevelTSItem.Tag = app;
-                        secondLevelTSItem.Click += App_Click;
-                        firstLevelTSItem.DropDownItems.Add(secondLevelTSItem);
-                    }
-                }
+            //            ToolStripItem[] secondLevelTSItems = firstLevelTSItem.DropDownItems.Find(app.Menu.Split('|')[1], false);
+            //            String secondeItemName = app.Menu.Split('|')[1];
+            //            if (secondLevelTSItems != null && secondLevelTSItems.Length > 0)
+            //            {
+            //                secondeItemName += "[同名]" + DateTime.Now.ToShortDateString();
+            //            }
+            //            ToolStripMenuItem secondLevelTSItem = new ToolStripMenuItem(secondeItemName);
+            //            secondLevelTSItem.Image = app.Icon;
+            //            secondLevelTSItem.Name = secondeItemName;
+            //            secondLevelTSItem.Tag = app;
+            //            secondLevelTSItem.Click += App_Click;
+            //            firstLevelTSItem.DropDownItems.Add(secondLevelTSItem);
+            //        }
+            //    }
                 
-            }
+            //}
         }
 
      
 
         private void App_Click(object sender, EventArgs e)
         {
-            ToolStripItem ctl = (ToolStripItem)sender;
-            if (ctl.Tag is IAppPlug)
-            {
-                IAppPlug app = ctl.Tag as IAppPlug;
-                switch (app.AppType)
-                {
-                    case AppType.Inner:
-                        {
-                            TabPage appTabP = null;
-                            Control[] tabs = mainTabControl.Controls.Find(app.Name, false);
-                            if (tabs.Length > 0 && !app.MultiInstance)
-                            {
-                                appTabP = (TabPage)tabs[0];
-                            }
-                            else
-                            {
-                                imageListTabIcon.Images.Add(app.Icon);
-                                appTabP = new TabPage(app.Name + (app.MultiInstance ? "_" + (tabs.Length + 1) : ""));
-                               // appTabP.ImageIndex = imageListTabIcon.Images.Count - 1;
-                                appTabP.Name = app.Name;
-                                appTabP.ToolTipText = app.Name;
-                                mainTabControl.Controls.Add(appTabP);
-                                appTabP.Controls.Add(app.MainForm);
-                                app.MainForm.Dock = DockStyle.Fill;
+            //ToolStripItem ctl = (ToolStripItem)sender;
+            //if (ctl.Tag is IAppPlug)
+            //{
+            //    IAppPlug app = ctl.Tag as IAppPlug;
+            //    switch (app.AppType)
+            //    {
+            //        case AppType.Inner:
+            //            {
+            //                TabPage appTabP = null;
+            //                Control[] tabs = mainTabControl.Controls.Find(app.Name, false);
+            //                if (tabs.Length > 0 && !app.MultiInstance)
+            //                {
+            //                    appTabP = (TabPage)tabs[0];
+            //                }
+            //                else
+            //                {
+            //                    imageListTabIcon.Images.Add(app.Icon);
+            //                    appTabP = new TabPage(app.Name + (app.MultiInstance ? "_" + (tabs.Length + 1) : ""));
+            //                   // appTabP.ImageIndex = imageListTabIcon.Images.Count - 1;
+            //                    appTabP.Name = app.Name;
+            //                    appTabP.ToolTipText = app.Name;
+            //                    mainTabControl.Controls.Add(appTabP);
+            //                    appTabP.Controls.Add(app.MainForm);
+            //                    app.MainForm.Dock = DockStyle.Fill;
 
 
-                            }
-                            mainTabControl.SelectedTab = appTabP;
-                            break;
-                        }
-                    case AppType.PopUp:
-                        {
-                            AppPopUpForm form = new AppPopUpForm(app.MainForm);
-                            form.Name = app.Name;
-                            form.Text = app.Name;
-                            form.ShowDialog();
-                            break;
-                        }
-                    default:
-                        MessageBox.Show("启动程序，未实现！");
-                        break;
-                }
-            }
+            //                }
+            //                mainTabControl.SelectedTab = appTabP;
+            //                break;
+            //            }
+            //        case AppType.PopUp:
+            //            {
+            //                AppPopUpForm form = new AppPopUpForm(app.MainForm);
+            //                form.Name = app.Name;
+            //                form.Text = app.Name;
+            //                form.ShowDialog();
+            //                break;
+            //            }
+            //        default:
+            //            MessageBox.Show("启动程序，未实现！");
+            //            break;
+            //    }
+            //}
         }
         private void TranMsgDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -499,13 +499,12 @@ namespace ShopeeChat
 
         private void 帮助信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openHelp();
+            //openHelp();
         }
         private void openHelp()
         {
-            string helpUrl = "http://www.dianliaotong.com/news/news.html";// "http://www.dianliaotong.com/news.html";
-            WelcomeForm welcome = new WelcomeForm(helpUrl);
-            welcome.ShowDialog();
+            //string helpUrl = "http://www.dianliaotong.com/news/news.html";// "http://www.dianliaotong.com/news.html";
+            //WelcomeForm welcome = new WelcomeForm(helpUrl);
         }
 
         private void 软件版本ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -583,19 +582,22 @@ namespace ShopeeChat
 
         private void ChatForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            quitForm();
+            e.Cancel = true;
+        }
+        private void quitForm()
+        {
             DialogResult result = MessageBox.Show("是否退出？选否,最小化到托盘", "操作提示", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
                 this.Dispose();
             }
-            else if(result == DialogResult.No)
+            else if (result == DialogResult.No)
             {
                 this.WindowState = FormWindowState.Minimized;
                 this.Visible = false;
             }
-            e.Cancel = true;
         }
-
         private void chatFormNotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
@@ -759,6 +761,43 @@ namespace ShopeeChat
             {
                 MessageBox.Show("请先在左边[店铺导航栏]中选择一个账号！");
             }
+        }
+
+        private void quitTSMItem_Click(object sender, EventArgs e)
+        {
+            quitForm();
+        }
+
+        private void AboutTSLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MinTSItem_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+            this.Visible = false;
+        }
+
+        private void MaxTSItem_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void zoomTSItem_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+        }
+
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void transUISwitchBtn_Click(object sender, EventArgs e)
+        {
+            contentSplitPannel.Panel2Collapsed = !contentSplitPannel.Panel2Collapsed;
+            transUISwitchBtn.Text = (contentSplitPannel.Panel2Collapsed ? "打开" : "关闭") + "翻译界面";
         }
     }
 }

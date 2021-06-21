@@ -32,10 +32,10 @@ namespace Common.Browser
             {
                 if (null == instatce)
                 {
-                    instatce = new BrowerHelper();
+                    //instatce = new BrowerHelper();
                     try
                     {
-                        instatce.initBrowser();
+                        //instatce.initBrowser();
                     }
                     catch (Exception ex)
                     {

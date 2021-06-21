@@ -24,8 +24,8 @@ namespace ShopeeChat
             //webBrowser1.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(webBrowser_DocumentCompleted);
             //webBrowser1.Navigate(url);
             //"http://www.dianliaotong.com/news/news.html"
-            swb = new StoreWebBrowser(url, BrowerHelper.Instatce.GetCacheDir("\\cap\\cap"));
-            this.panel1.Controls.Add(swb.ChromiumWebBrowser);
+            //swb = new StoreWebBrowser(url, BrowerHelper.Instatce.GetCacheDir("\\cap\\cap"));
+            //this.panel1.Controls.Add(swb.ChromiumWebBrowser);
             
         }
 

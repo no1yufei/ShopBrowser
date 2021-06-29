@@ -3,12 +3,13 @@ using System.Collections.Specialized;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using CefSharp;
+using Common.Browser;
 
 namespace SharpBrowser {
 	internal class RequestHandler : IRequestHandler {
-		BrowserMainControl myForm;
+		ChromeBrowser myForm;
 
-		public RequestHandler(BrowserMainControl form) {
+		public RequestHandler(ChromeBrowser form) {
 			myForm = form;
 		}
 
@@ -85,6 +86,15 @@ namespace SharpBrowser {
 		//     when the authentication information is available. Return false to cancel the
 		//     request.
 		public bool GetAuthCredentials(IWebBrowser chromiumWebBrowser, IBrowser browser, string originUrl, bool isProxy, string host, int port, string realm, string scheme, IAuthCallback callback) {
+
+			if (isProxy == true)
+			{
+				if (myForm.ProxyIp == null)
+					throw new NullReferenceException("credential is null");
+
+				callback.Continue(myForm.ProxyIp.UserName, myForm.ProxyIp.Password);
+				return true;
+			}
 			// Return false to cancel the request.
 			return false;
 		}

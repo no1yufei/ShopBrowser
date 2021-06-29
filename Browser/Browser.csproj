@@ -71,6 +71,12 @@
     </Compile>
     <Compile Include="Common.cs" />
     <Compile Include="Data\JSON.cs" />
+    <Compile Include="Factory\CefKeyboardHandler.cs" />
+    <Compile Include="Factory\Interaction.cs" />
+    <Compile Include="Factory\ChromeBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Factory\ProxyIP.cs" />
     <Compile Include="Handlers\ResourceRequestHandler.cs" />
     <Compile Include="BrowserMainControl.cs">
       <SubType>UserControl</SubType>

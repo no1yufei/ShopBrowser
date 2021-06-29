@@ -12,6 +12,7 @@ using System.IO;
 using CefSharp.WinForms;
 using System.Web;
 using System.Threading;
+using Common.Browser;
 
 namespace SharpBrowser
 {
@@ -38,7 +39,7 @@ namespace SharpBrowser
 		public delegate void CloseTabHandler();
 		public CloseTabHandler CloseTab;
 
-		public delegate TabInfo OpenTabHandler(string url, bool focusNewTab = true, string refererUrl = null);
+		public delegate TabInfo OpenTabHandler(string url,string storename, bool focusNewTab = true, string refererUrl = null);
 		public OpenTabHandler OpenTab;
 
 
@@ -49,10 +50,30 @@ namespace SharpBrowser
 			LoadURL(url);
 			currentFullURL = url;
 		}
+		public BrowserTabForm(ChromeBrowser chromeBrowser,string url)
+		{
+			InitializeComponent();
+			this.browserPannel.Controls.Remove(CurBrowser);
+			CurBrowser.Dispose();
+			CurBrowser = chromeBrowser;
+			CurBrowser.Dock = DockStyle.Fill;
+			this.browserPannel.Controls.Add(CurBrowser);
+			InitTooltips(this.Controls);
+			ConfigureBrowser();
+			LoadURL(url);
+			currentFullURL = url;
+		}
 		public BrowserTabForm()
 		{
 			string url = "";
 			InitializeComponent();
+
+			this.browserPannel.Controls.Remove(CurBrowser);
+			CurBrowser.Dispose();
+			CurBrowser = new ChromeBrowser();
+			CurBrowser.Dock = DockStyle.Fill;
+			this.browserPannel.Controls.Add(CurBrowser);
+
 			InitTooltips(this.Controls);
 			ConfigureBrowser();
 			LoadURL(url);
@@ -402,7 +423,7 @@ namespace SharpBrowser
 		{
 			if(OpenTab != null)
 			{
-				OpenTab(DownloadsURL);
+				OpenTab(DownloadsURL,"");
 			}
 		}
 

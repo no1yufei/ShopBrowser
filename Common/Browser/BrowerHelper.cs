@@ -2,7 +2,7 @@
 using CefSharp;
 using CefSharp.Handler;
 using CefSharp.WinForms;
-
+using ShopeeChat;
 using ShopeeChat.SysData;
 using System;
 using System.Collections.Generic;
@@ -32,10 +32,10 @@ namespace Common.Browser
             {
                 if (null == instatce)
                 {
-                    //instatce = new BrowerHelper();
+                    instatce = new BrowerHelper();
                     try
                     {
-                        //instatce.initBrowser();
+                        instatce.initBrowser();
                     }
                     catch (Exception ex)
                     {
@@ -78,18 +78,7 @@ namespace Common.Browser
         /// </summary>
         private void initBrowser()
         {
-            CefSettings settings = new CefSettings();
-            settings.UserAgent = ShopeeChat.HtmlHttpHelper.UserAgent;
-            settings.CachePath = GetCacheDir();
-            settings.PersistSessionCookies = true;
-            settings.PersistUserPreferences = true;
-            settings.LogSeverity = LogSeverity.Default;
-            //settings.LocalesDirPath = GetCacheDir();
-            //settings.LogFile = logFilePath;
-            //settings.Locale = "zh-CN";
-            CefSharpSettings.LegacyJavascriptBindingEnabled = true;
-            settings.MultiThreadedMessageLoop = true;
-            Cef.Initialize(settings);
+            ChromeBrowser.GlobalInitBrowser(GetCacheDir(),HtmlHttpHelper.UserAgent);
         }
 
         string cachetempPath = Environment.CurrentDirectory + "\\cache\\";

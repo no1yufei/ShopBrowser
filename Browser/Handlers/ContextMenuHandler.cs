@@ -98,7 +98,7 @@ namespace SharpBrowser {
 				browser.GetHost().StartDownload(parameters.LinkUrl);
 			}
 			if (id == OpenLinkInNewTab) {
-				bTabForm.OpenTab(parameters.LinkUrl, true, browser.MainFrame.Url);
+				bTabForm.OpenTab(parameters.LinkUrl,"", true, browser.MainFrame.Url);
 			}
 			if (id == CopyLinkAddress) {
 				Clipboard.SetText(parameters.LinkUrl);

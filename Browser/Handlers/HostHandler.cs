@@ -16,7 +16,7 @@ namespace SharpBrowser {
 			myForm = form;
 		}
 		public void addNewBrowserTab(string url, bool focusNewTab = true) {
-			myForm.AddNewBrowserTab(url, focusNewTab);
+			myForm.AddNewBrowserTab(url,"", focusNewTab);
 		}
 		public string getDownloads() {
 			lock (myForm.downloads) {

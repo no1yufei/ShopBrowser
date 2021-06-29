@@ -1,10 +1,11 @@
 ﻿using CefSharp;
+using Common.Browser;
 
 namespace SharpBrowser {
 	internal class LifeSpanHandler : ILifeSpanHandler {
-		BrowserMainControl myForm;
+		ChromeBrowser myForm;
 
-		public LifeSpanHandler(BrowserMainControl form) {
+		public LifeSpanHandler(ChromeBrowser form) {
 			myForm = form;
 		}
 
@@ -150,7 +151,8 @@ namespace SharpBrowser {
 
 			// open popup in new tab!
 			newBrowser = null;
-			myForm.AddNewBrowserTab(targetUrl);
+			//myForm.AddNewBrowserTab(targetUrl,"");
+			myForm.LoadUrl(targetUrl);
 
 			return true;
 

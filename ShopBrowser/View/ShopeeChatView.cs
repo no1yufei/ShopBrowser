@@ -3,6 +3,7 @@ using CefSharp.WinForms;
 using Common.Brower;
 using Common.Browser;
 using SharpBrowser;
+using SharpBrowser.Factory;
 using ShopBrowser.Properties;
 using ShopeeChat.SysData;
 
@@ -124,14 +125,27 @@ namespace ShopChatPlus.View
                 if(curStore != storeINfo)
                 {
                     
-                    string url = baseURL + "/webchat/conversations";
+                    string url = baseURL + "/account/signin?next=" + "/webchat/conversations";
                     //curBrowser.LoadUrl(url);
-                    storeWebs.AddNewBrowserTab(url);
+                    StoreGroup group = GroupConfigHelper.Instatce.GetStoreGroup(storeINfo);
+                    string cacheDir = BrowerHelper.Instatce.GetCacheDir(group, storeINfo);
+                    ProxyIP proIP = null;
+                    if (group.IsProxy)
+                    {
+                        proIP = new ProxyIP();
+                        proIP.IP = group.ProxyIP;
+                        proIP.Port = group.Port;
+                        proIP.UserName = group.ProxyUserName;
+                        proIP.Password = group.Password;
+
+                    }
+                    
+                    storeWebs.AddNewBrowserTab(url,new ChromeBrowser(url,cacheDir, storeINfo.UserName,null,storeINfo.Cookies,proIP));
                 }
             }
             else
             {
-                storeWebs.AddNewBrowserTab("http://www.shopee.cn");
+                storeWebs.AddNewBrowserTab("http://www.shopee.cn",ChromeBrowser.DefaultStoreName);
             }
             curRegion = region;
             curStore = storeINfo;
@@ -152,10 +166,22 @@ namespace ShopChatPlus.View
                             }
                 else
                 {
+                    //fullurl = baseURL + "/account/signin?next=" + url;
                     fullurl = baseURL + url;
                 }
+                StoreGroup group = GroupConfigHelper.Instatce.GetStoreGroup(storeINfo);
+                string cacheDir = BrowerHelper.Instatce.GetCacheDir(group, storeINfo);
+                ProxyIP proIP = null;
+                if (group.IsProxy)
+                {
+                    proIP = new ProxyIP();
+                    proIP.IP = group.ProxyIP;
+                    proIP.Port = group.Port;
+                    proIP.UserName = group.ProxyUserName;
+                    proIP.Password = group.Password;
 
-                storeWebs.AddNewBrowserTab(fullurl);
+                }
+                storeWebs.AddNewBrowserTab(url, new ChromeBrowser(url, cacheDir, storeINfo.UserName, null, "", proIP));
                 //webBrower.FrameLoadEnd += webBrower_FrameLoadEnd;
                 //webBrower.Tag = getLoginJs(userName, password, Guid.NewGuid().ToString(), baseURL);
             }
@@ -172,7 +198,7 @@ namespace ShopChatPlus.View
         {
             if (curStore != null && null != curRegion)
             {
-                loadURL(curRegion, curStore,curRegion.GetSellerURL() + endUrl.Replace("\"",""));
+                loadURL(curRegion, curStore,curRegion.GetSellerURL()+ "/account/signin?next="+ endUrl.Replace("\"",""));
             }
             else
             {

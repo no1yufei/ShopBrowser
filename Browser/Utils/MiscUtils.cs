@@ -15,7 +15,7 @@ namespace SharpBrowser {
 			return tb.Focused;
 		}
 
-		public static void AddHotKey(UserControl form, Action function, Keys key, bool ctrl = false, bool shift = false, bool alt = false) {
+		public static void AddHotKey(Control form, Action function, Keys key, bool ctrl = false, bool shift = false, bool alt = false) {
 			//form.ke = true;
 			form.KeyDown += delegate(object sender, KeyEventArgs e) {
 				if (e.IsHotkey(key, ctrl, shift, alt)) {

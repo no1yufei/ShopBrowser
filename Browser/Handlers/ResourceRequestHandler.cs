@@ -8,11 +8,12 @@ using CefSharp;
 using System.Windows.Forms;
 using System.Drawing;
 using CefSharp.Callback;
+using Common.Browser;
 
 namespace SharpBrowser {
 	internal class ResourceRequestHandler : IResourceRequestHandler {
-		readonly BrowserMainControl myForm;
-		public ResourceRequestHandler(BrowserMainControl form) {
+		readonly ChromeBrowser myForm;
+		public ResourceRequestHandler(ChromeBrowser form) {
 			myForm = form;
 		}
 		public void Dispose() {

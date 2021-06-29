@@ -5,16 +5,17 @@ using CefSharp;
 
 
 namespace SharpBrowser {
-	internal class KeyboardHandler : IKeyboardHandler {
-		BrowserMainControl myForm;
+	public class KeyboardHandler : IKeyboardHandler {
+		Control myForm;
 
-		public static List<SharpHotKey> Hotkeys = new List<SharpHotKey>();
-		public static void AddHotKey(UserControl form, Action function, Keys key, bool ctrl = false, bool shift = false, bool alt = false) {
+		public  List<SharpHotKey> Hotkeys = new List<SharpHotKey>();
+		public  void AddHotKey(Control form, Action function, Keys key, bool ctrl = false, bool shift = false, bool alt = false)
+		{
 			Utils.AddHotKey(form, function, key, ctrl, shift, alt);
 			Hotkeys.Add(new SharpHotKey(function, key, ctrl, shift, alt));
 		}
 
-		public KeyboardHandler(BrowserMainControl form) {
+		public KeyboardHandler(Control form) {
 			myForm = form;
 		}
 		public bool OnPreKeyEvent(IWebBrowser browserControl, IBrowser browser, KeyType type, int windowsKeyCode, int nativeKeyCode, CefEventFlags modifiers, bool isSystemKey, ref bool isKeyboardShortcut) {
@@ -40,6 +41,7 @@ namespace SharpBrowser {
 							myForm.InvokeOnParent(delegate () {
 								key.Callback();
 							});
+							return false;
 						}
 					}
 				}
@@ -48,7 +50,7 @@ namespace SharpBrowser {
 
 			}
 
-			return false;
+			return true;
 		}
 	}
 }

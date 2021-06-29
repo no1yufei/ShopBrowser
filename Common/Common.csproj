@@ -158,8 +158,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Browser\CefKeyboardHandler.cs" />
-    <Compile Include="Browser\Interaction.cs" />
     <Compile Include="Browser\PopBrowerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -399,6 +397,10 @@
     <Content Include="Shopee\API\Data\login.js" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Browser\Browser.csproj">
+      <Project>{703472b8-b275-4f3f-95b6-426036f8462e}</Project>
+      <Name>Browser</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CommonData\CommonData.csproj">
       <Project>{3940785F-27F2-43D6-B064-F587E3B3E3D4}</Project>
       <Name>CommonData</Name>

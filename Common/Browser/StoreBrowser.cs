@@ -39,19 +39,9 @@ namespace Common.Browser
             get { return chromiumWebBrowser.Name; }
         }
         public Control Container;
-        Interaction interaction = new Interaction((result) =>
-        {
-            Console.WriteLine(result);
-        });
+       
 
-        public Interaction Interaction
-        {
-            get
-            {
-                return interaction;
-            }
-
-        }
+       
 
         private ChromiumWebBrowser chromiumWebBrowser;
         public ChromiumWebBrowser ChromiumWebBrowser
@@ -258,7 +248,7 @@ namespace Common.Browser
             //globolWebBrower.RegisterJsObject("interaction", interaction);
             CefSharpSettings.LegacyJavascriptBindingEnabled = true;
             CefSharpSettings.WcfEnabled = true;
-            globolWebBrower.JavascriptObjectRepository.Register("interaction", interaction, isAsync: false, options: BindingOptions.DefaultBinder);
+          //  globolWebBrower.JavascriptObjectRepository.Register("interaction", interaction, isAsync: false, options: BindingOptions.DefaultBinder);
             configureBrowser(globolWebBrower);
             initDevTools(globolWebBrower);
             globolWebBrower.RequestContext = new RequestContext(requestContextSettings);

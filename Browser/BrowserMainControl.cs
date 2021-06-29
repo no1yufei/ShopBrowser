@@ -14,6 +14,8 @@ using Timer = System.Windows.Forms.Timer;
 using System.Drawing;
 using System.Reflection;
 using SharpBrowser;
+using SharpBrowser.Factory;
+using Common.Browser;
 
 namespace SharpBrowser {
 
@@ -33,7 +35,7 @@ namespace SharpBrowser {
 
 			InitializeComponent();
 
-			InitBrowser();
+			initBrowser();
 
 		}
 
@@ -71,19 +73,19 @@ namespace SharpBrowser {
 		{
 
 			// browser hotkeys
-			KeyboardHandler.AddHotKey(this, CloseActiveTab, Keys.W, true);
-			KeyboardHandler.AddHotKey(this, CloseActiveTab, Keys.Escape, true);
-			KeyboardHandler.AddHotKey(this, AddBlankWindow, Keys.N, true);
-			KeyboardHandler.AddHotKey(this, AddBlankTab, Keys.T, true);
-			//KeyboardHandler.AddHotKey(this, RefreshActiveTab, Keys.F5);
-			//KeyboardHandler.AddHotKey(this, OpenDeveloperTools, Keys.F12);
-			KeyboardHandler.AddHotKey(this, NextTab, Keys.Tab, true);
-			KeyboardHandler.AddHotKey(this, PrevTab, Keys.Tab, true, true);
+			//KeyboardHandler.AddHotKey(this, CloseActiveTab, Keys.W, true);
+			//KeyboardHandler.AddHotKey(this, CloseActiveTab, Keys.Escape, true);
+			//KeyboardHandler.AddHotKey(this, AddBlankWindow, Keys.N, true);
+			//KeyboardHandler.AddHotKey(this, AddBlankTab, Keys.T, true);
+			////KeyboardHandler.AddHotKey(this, RefreshActiveTab, Keys.F5);
+			////KeyboardHandler.AddHotKey(this, OpenDeveloperTools, Keys.F12);
+			//KeyboardHandler.AddHotKey(this, NextTab, Keys.Tab, true);
+			//KeyboardHandler.AddHotKey(this, PrevTab, Keys.Tab, true, true);
 
-			// search hotkeys
-			//KeyboardHandler.AddHotKey(this, OpenSearch, Keys.F, true);
-			//KeyboardHandler.AddHotKey(this, CloseSearch, Keys.Escape);
-			//KeyboardHandler.AddHotKey(this, StopActiveTab, Keys.Escape);
+			//// search hotkeys
+			////KeyboardHandler.AddHotKey(this, OpenSearch, Keys.F, true);
+			////KeyboardHandler.AddHotKey(this, CloseSearch, Keys.Escape);
+			////KeyboardHandler.AddHotKey(this, StopActiveTab, Keys.Escape);
 
 
 		}
@@ -111,40 +113,40 @@ namespace SharpBrowser {
 		private HostHandler host;
 		private DownloadHandler dHandler;
 		private ContextMenuHandler mHandler;
-		private LifeSpanHandler lHandler;
-		private KeyboardHandler kHandler;
-		private RequestHandler rHandler;
+		//private LifeSpanHandler lHandler;
+		//private KeyboardHandler kHandler;
+		//private RequestHandler rHandler;
 		/// <summary>
 		/// this is done just once, to globally initialize CefSharp/CEF
 		/// </summary>
-		private void InitBrowser() {
+		private void initBrowser() {
 
-			CefSharpSettings.LegacyJavascriptBindingEnabled = true;
-			CefSharpSettings.WcfEnabled = false;
+			//CefSharpSettings.LegacyJavascriptBindingEnabled = true;
+			//CefSharpSettings.WcfEnabled = false;
 
-			CefSettings settings = new CefSettings();
+			//CefSettings settings = new CefSettings();
 
-			settings.RegisterScheme(new CefCustomScheme {
-				SchemeName = BrowserTabForm.InternalURL,
-				SchemeHandlerFactory = new SchemeHandlerFactory()
-			});
+			//settings.RegisterScheme(new CefCustomScheme {
+			//	SchemeName = BrowserTabForm.InternalURL,
+			//	SchemeHandlerFactory = new SchemeHandlerFactory()
+			//});
 
-			settings.UserAgent = BrowserTabForm.UserAgent;
-			settings.AcceptLanguageList = BrowserTabForm.AcceptLanguage;
+			//settings.UserAgent = BrowserTabForm.UserAgent;
+			//settings.AcceptLanguageList = BrowserTabForm.AcceptLanguage;
 
-			settings.IgnoreCertificateErrors = true;
+			//settings.IgnoreCertificateErrors = true;
 			
-			settings.CachePath = GetAppDir("Cache");
+			//settings.CachePath = GetAppDir("Cache");
 
-			Cef.Initialize(settings);
+			//Cef.Initialize(settings);
 
 			InitDownloads();
 
 			dHandler = new DownloadHandler(this);
-			lHandler = new LifeSpanHandler(this);
+			
 			//mHandler = new ContextMenuHandler(this);
-		    kHandler = new KeyboardHandler(this);
-			rHandler = new RequestHandler(this);
+		    //kHandler = new KeyboardHandler(this);
+			//rHandler = new RequestHandler(this);
 
 			host = new HostHandler(this);
 
@@ -182,37 +184,67 @@ namespace SharpBrowser {
 			Process.Start(info);
 		}
 		public void AddBlankTab() {
-			AddNewBrowserTab("");
+			AddNewBrowserTab("","");
 			//this.InvokeOnParent(delegate() {
 			//	TxtURL.Focus();
 			//});
 		}
-
-		public TabInfo AddNewBrowserTab(string url, bool focusNewTab = true, string refererUrl = null) {
-			return (TabInfo)this.Invoke((Func<TabInfo>)delegate {
-              if(url.Length > 0)
+		private TabInfo getTabInfo(string url,string storename)
+		{
+			if (url.Length > 0)
+			{
+				// check if already exists
+				foreach (BrowserTabStripItem tab in TabPages.Items)
 				{
-					// check if already exists
-					foreach (BrowserTabStripItem tab in TabPages.Items)
+					TabInfo tab2 = (TabInfo)tab.Tag;
+					if (tab2 != null
+						&& (tab2.CurURL == url)
+						&& (tab2.BrowserTab.CurBrowser is ChromeBrowser && (tab2.BrowserTab.CurBrowser as ChromeBrowser).StoreName == storename))
 					{
-						TabInfo tab2 = (TabInfo)tab.Tag;
-						if (tab2 != null && (tab2.CurURL == url))
-						{
-							TabPages.SelectedItem = tab;
-							return tab2;
-						}
+						TabPages.SelectedItem = tab;
+						return tab2;
 					}
 				}
-				
+			}
+			return null;
+		}
+		public TabInfo AddNewBrowserTab(string url, ChromeBrowser chromBbrowser, bool focusNewTab = true, string refererUrl = null)
+		{
+			return (TabInfo)this.Invoke((Func<TabInfo>)delegate {
 
-				BrowserTabStripItem tabStrip = new BrowserTabStripItem();
-				tabStrip.Title = "新标签页";
-				TabPages.Items.Insert(TabPages.Items.Count - 1, tabStrip);
-				
-				TabInfo newTab = AddNewBrowser(tabStrip, url);
-				this.newTab = newTab;
-				newTab.RefererURL = refererUrl;
-				if (focusNewTab) timer1.Enabled = true;
+				TabInfo newTab = getTabInfo(url, chromBbrowser.StoreName);
+				if(null == newTab)
+				{
+					BrowserTabStripItem tabStrip = new BrowserTabStripItem();
+					tabStrip.Title = "新标签页";
+					TabPages.Items.Insert(TabPages.Items.Count - 1, tabStrip);
+
+					newTab = AddNewBrowser(chromBbrowser, tabStrip, url);
+					this.newTab = newTab;
+					newTab.RefererURL = refererUrl;
+					if (focusNewTab) timer1.Enabled = true;
+				}
+				else
+				{
+					chromBbrowser.Dispose();
+				}
+				return newTab;
+			});
+		}
+		public TabInfo AddNewBrowserTab(string url,string storename, bool focusNewTab = true, string refererUrl = null) {
+			return (TabInfo)this.Invoke((Func<TabInfo>)delegate {
+			TabInfo newTab = getTabInfo(url, storename);
+				if (null == newTab)
+				{
+					BrowserTabStripItem tabStrip = new BrowserTabStripItem();
+					tabStrip.Title = "新标签页";
+					TabPages.Items.Insert(TabPages.Items.Count - 1, tabStrip);
+
+					newTab = AddNewBrowser(tabStrip, url);
+					this.newTab = newTab;
+					newTab.RefererURL = refererUrl;
+					if (focusNewTab) timer1.Enabled = true;
+				}
 				return newTab;
 			});
 		}
@@ -231,9 +263,9 @@ namespace SharpBrowser {
 			// add events
 
 			browser.CurBrowser.DownloadHandler = dHandler;
-			browser.CurBrowser.LifeSpanHandler = lHandler;
-			browser.CurBrowser.KeyboardHandler = kHandler;
-			browser.CurBrowser.RequestHandler = rHandler;
+			//browser.CurBrowser.LifeSpanHandler = lHandler;
+			//browser.CurBrowser.KeyboardHandler = kHandler;
+			//browser.CurBrowser.RequestHandler = rHandler;
 
 			// new tab obj
 			TabInfo tab = new TabInfo {
@@ -256,10 +288,56 @@ namespace SharpBrowser {
 			return tab;
 		}
 
+		private TabInfo AddNewBrowser(ChromeBrowser chromeBrowser, BrowserTabStripItem tabStrip, String url)
+		{
+
+			BrowserTabForm browser = new BrowserTabForm(chromeBrowser, url);
+			browser.OpenTab = AddNewBrowserTab;
+			browser.CloseTab = CloseActiveTab;
+			browser.TitleChanged = setTabTitle;
+
+			// set layout
+			browser.Dock = DockStyle.Fill;
+			tabStrip.Controls.Add(browser);
+			browser.BringToFront();
+
+			// add events
+
+			browser.CurBrowser.DownloadHandler = dHandler;
+			//browser.CurBrowser.LifeSpanHandler = lHandler;
+			//browser.CurBrowser.KeyboardHandler = kHandler;
+			//browser.CurBrowser.RequestHandler = rHandler;
+
+			// new tab obj
+			TabInfo tab = new TabInfo
+			{
+				IsOpen = true,
+				BrowserTab = browser,
+				Tab = tabStrip,
+				OrigURL = url,
+				CurURL = url,
+				Title = "新标签页",
+				DateCreated = DateTime.Now
+			};
+
+			// save tab obj in tabstrip
+			tabStrip.Tag = tab;
+
+			if (url.StartsWith(BrowserTabForm.InternalURL + ":"))
+			{
+				browser.CurBrowser.JavascriptObjectRepository.Register("host", host, true, BindingOptions.DefaultBinder);
+			}
+			return tab;
+		}
 		private void setTabTitle(String title)
 		{
 			if (CurTab != null)
 			{
+				if(CurTab.BrowserTab.CurBrowser is ChromeBrowser)
+				{
+					title = "[" + (CurTab.BrowserTab.CurBrowser as ChromeBrowser).StoreName + "]" + title;
+				}
+				
 				CurTab.Title = title;
 				CurTab.Tab.Title = title;
 			}
@@ -526,7 +604,7 @@ namespace SharpBrowser {
 			}
 			else
 			{
-				downloadsTab = AddNewBrowserTab(BrowserTabForm.DownloadsURL);
+				downloadsTab = AddNewBrowserTab(BrowserTabForm.DownloadsURL,"");
 			}
 		}
 

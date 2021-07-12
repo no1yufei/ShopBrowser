@@ -39,15 +39,8 @@
             this.imageListTabIcon = new System.Windows.Forms.ImageList(this.components);
             this.storeTreeView = new System.Windows.Forms.TreeView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.添加店铺ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.删除店铺ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.添加店群ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.删除店群ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.生成模板ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.导入模板ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addStoreTsBtn = new System.Windows.Forms.ToolStripButton();
+            this.addGroupBtn = new System.Windows.Forms.ToolStripButton();
             this.treeContextMenuStrip.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -141,7 +134,7 @@
             this.storeTreeView.Name = "storeTreeView";
             this.storeTreeView.SelectedImageIndex = 11;
             this.storeTreeView.ShowNodeToolTips = true;
-            this.storeTreeView.Size = new System.Drawing.Size(162, 224);
+            this.storeTreeView.Size = new System.Drawing.Size(162, 207);
             this.storeTreeView.TabIndex = 1;
             this.storeTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.storeTreeView_AfterSelect);
             // 
@@ -151,96 +144,38 @@
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(48, 48);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2,
-            this.toolStripDropDownButton1});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 224);
+            this.addStoreTsBtn,
+            this.addGroupBtn});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 207);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(162, 55);
+            this.toolStrip1.Size = new System.Drawing.Size(162, 72);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton1
+            // addStoreTsBtn
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.添加店铺ToolStripMenuItem,
-            this.删除店铺ToolStripMenuItem});
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.toolStripButton1.Size = new System.Drawing.Size(65, 35);
-            this.toolStripButton1.Text = "添加店铺";
-            this.toolStripButton1.ToolTipText = "店铺设置";
+            this.addStoreTsBtn.Image = ((System.Drawing.Image)(resources.GetObject("addStoreTsBtn.Image")));
+            this.addStoreTsBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addStoreTsBtn.Name = "addStoreTsBtn";
+            this.addStoreTsBtn.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.addStoreTsBtn.Size = new System.Drawing.Size(80, 69);
+            this.addStoreTsBtn.Text = "添加店铺";
+            this.addStoreTsBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.addStoreTsBtn.ToolTipText = "添加店铺";
+            this.addStoreTsBtn.Click += new System.EventHandler(this.addStoreTsBtn_Click);
             // 
-            // 添加店铺ToolStripMenuItem
+            // addGroupBtn
             // 
-            this.添加店铺ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("添加店铺ToolStripMenuItem.Image")));
-            this.添加店铺ToolStripMenuItem.Name = "添加店铺ToolStripMenuItem";
-            this.添加店铺ToolStripMenuItem.Overflow = System.Windows.Forms.ToolStripItemOverflow.Always;
-            this.添加店铺ToolStripMenuItem.Size = new System.Drawing.Size(196, 38);
-            this.添加店铺ToolStripMenuItem.Text = "添加店铺";
-            // 
-            // 删除店铺ToolStripMenuItem
-            // 
-            this.删除店铺ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("删除店铺ToolStripMenuItem.Image")));
-            this.删除店铺ToolStripMenuItem.Name = "删除店铺ToolStripMenuItem";
-            this.删除店铺ToolStripMenuItem.Size = new System.Drawing.Size(196, 38);
-            this.删除店铺ToolStripMenuItem.Text = "删除店铺";
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.添加店群ToolStripMenuItem,
-            this.删除店群ToolStripMenuItem});
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.toolStripButton2.Size = new System.Drawing.Size(65, 35);
-            this.toolStripButton2.Text = "店群管理";
-            // 
-            // 添加店群ToolStripMenuItem
-            // 
-            this.添加店群ToolStripMenuItem.Name = "添加店群ToolStripMenuItem";
-            this.添加店群ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.添加店群ToolStripMenuItem.Text = "添加店群";
-            // 
-            // 删除店群ToolStripMenuItem
-            // 
-            this.删除店群ToolStripMenuItem.Name = "删除店群ToolStripMenuItem";
-            this.删除店群ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.删除店群ToolStripMenuItem.Text = "删除店群";
-            // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.生成模板ToolStripMenuItem,
-            this.导入模板ToolStripMenuItem});
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Padding = new System.Windows.Forms.Padding(0, 0, 40, 0);
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(85, 36);
-            this.toolStripDropDownButton1.Text = "店铺模板";
-            // 
-            // 生成模板ToolStripMenuItem
-            // 
-            this.生成模板ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("生成模板ToolStripMenuItem.Image")));
-            this.生成模板ToolStripMenuItem.Name = "生成模板ToolStripMenuItem";
-            this.生成模板ToolStripMenuItem.Size = new System.Drawing.Size(196, 38);
-            this.生成模板ToolStripMenuItem.Text = "生成模板";
-            // 
-            // 导入模板ToolStripMenuItem
-            // 
-            this.导入模板ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("导入模板ToolStripMenuItem.Image")));
-            this.导入模板ToolStripMenuItem.Name = "导入模板ToolStripMenuItem";
-            this.导入模板ToolStripMenuItem.Size = new System.Drawing.Size(196, 38);
-            this.导入模板ToolStripMenuItem.Text = "导入模板";
+            this.addGroupBtn.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.addGroupBtn.Image = ((System.Drawing.Image)(resources.GetObject("addGroupBtn.Image")));
+            this.addGroupBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addGroupBtn.Name = "addGroupBtn";
+            this.addGroupBtn.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.addGroupBtn.Size = new System.Drawing.Size(80, 69);
+            this.addGroupBtn.Text = "添加群组";
+            this.addGroupBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.addGroupBtn.ToolTipText = "添加群组";
+            this.addGroupBtn.Click += new System.EventHandler(this.addGroupBtn_Click);
             // 
             // ShopTreeView
             // 
@@ -271,14 +206,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem delteGroupDTSM;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripButton1;
-        private System.Windows.Forms.ToolStripMenuItem 添加店铺ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 删除店铺ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripButton2;
-        private System.Windows.Forms.ToolStripMenuItem 添加店群ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 删除店群ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.ToolStripMenuItem 生成模板ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 导入模板ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton addStoreTsBtn;
+        private System.Windows.Forms.ToolStripButton addGroupBtn;
     }
 }

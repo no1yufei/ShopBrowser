@@ -17,6 +17,7 @@ namespace ShopeeChat.SysData
 {
     public class Store
     {
+        public int Plateform = 1;
         public String Country;
         string regionid;
 
@@ -35,7 +36,7 @@ namespace ShopeeChat.SysData
 
         public String ServerURL
         {
-            get { return StoreRegionMap.GetSellerURL(RegionID); }
+            get { return StoreRegionMap.GetSellerURL(RegionID, Plateform); }
         }
         string displayName;
         /// <summary>
@@ -149,17 +150,19 @@ namespace ShopeeChat.SysData
             }
         }
 
-        public Store(string regionid, string userName, String pawd)
+        public Store(int plateform, string regionid, string userName, String pawd)
         {
             this.RegionID = regionid;
             this.UserName = userName;
             this.Password = pawd;
+            this.Plateform = plateform;
         }
-        public void SetValue(string regionid,string userName,String pawd)
+        public void SetValue(int plateform, string regionid,string userName,String pawd)
         {
             this.RegionID = regionid;
             this.UserName = userName;
             this.Password = pawd;
+            this.Plateform = plateform;
         }
         public Store() {
             //Hhh.sCookies = Cookies;

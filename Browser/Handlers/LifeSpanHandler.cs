@@ -152,7 +152,7 @@ namespace SharpBrowser {
 			// open popup in new tab!
 			newBrowser = null;
 			//myForm.AddNewBrowserTab(targetUrl,"");
-			myForm.LoadUrl(targetUrl);
+			myForm.Load(targetUrl);
 
 			return true;
 

@@ -114,7 +114,7 @@ namespace ShopeeChat
             //Guid deviceid = Guid.NewGuid();
             //string postData = "{\"username\": \"anygogo01\", \"password\": \"Liu189689\", \"device_id\": \""+deviceid.ToString()+"\"}";
 
-            store = new Store("ID","vvbuy3.id", "FZ3344shopee");
+            store = new Store(1,"ID","vvbuy3.id", "FZ3344shopee");
             StoreGroup group = new StoreGroup();
             ShopeeAPI api = new ShopeeAPI();
             api.Login(group,store);

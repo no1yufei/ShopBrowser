@@ -16,66 +16,45 @@ using Common.Browser;
 
 namespace SharpBrowser
 {
-    public partial class BrowserTabForm : UserControl
-    {
-		public static string Branding = "SharpBrowser";
+	public partial class BrowserTabForm : UserControl
+	{
 
-		private string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\";
-		public static string UserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36";
-		public static string AcceptLanguage = "en-US,en;q=0.9";
-		public static string HomepageURL = "https://www.baidu.com";
-		public static string NewTabURL = "about:blank";
-		public static string InternalURL = "sharpbrowser";
-		public static string DownloadsURL = "sharpbrowser://storage/downloads.html";
-		public static string FileNotFoundURL = "sharpbrowser://storage/errors/notFound.html";
-		public static string CannotConnectURL = "sharpbrowser://storage/errors/cannotConnect.html";
-		public static string SearchURL = "https://www.baidu.com/s?wd=";
-
-		public bool WebSecurity = true;
-		public bool CrossDomainSecurity = true;
-		public bool WebGL = true;
-		public bool ApplicationCache = true;
-
+		public string InitURL
+		{
+			get { return currentFullURL; }
+		}
 		public delegate void CloseTabHandler();
 		public CloseTabHandler CloseTab;
 
-		public delegate TabInfo OpenTabHandler(string url,string storename, bool focusNewTab = true, string refererUrl = null);
+		public delegate TabInfo OpenTabHandler(string url, string storename, bool focusNewTab = true, string refererUrl = null);
 		public OpenTabHandler OpenTab;
 
+		public ChromeBrowser CurBrowser;
 
-		public BrowserTabForm(string url)        {
-            InitializeComponent();
+		public BrowserTabForm(string url) {
+			InitializeComponent();
+			addChromeBrowser(url);
 			InitTooltips(this.Controls);
-			ConfigureBrowser();
-			LoadURL(url);
-			currentFullURL = url;
 		}
-		public BrowserTabForm(ChromeBrowser chromeBrowser,string url)
+		public BrowserTabForm(ChromeBrowser chromeBrowser, string url)
 		{
 			InitializeComponent();
-			this.browserPannel.Controls.Remove(CurBrowser);
-			CurBrowser.Dispose();
-			CurBrowser = chromeBrowser;
-			CurBrowser.Dock = DockStyle.Fill;
-			this.browserPannel.Controls.Add(CurBrowser);
+			addChromeBrowser(url,chromeBrowser);
 			InitTooltips(this.Controls);
-			ConfigureBrowser();
-			LoadURL(url);
-			currentFullURL = url;
+			
 		}
 		public BrowserTabForm()
 		{
-			string url = "";
 			InitializeComponent();
-
-			this.browserPannel.Controls.Remove(CurBrowser);
-			CurBrowser.Dispose();
-			CurBrowser = new ChromeBrowser();
+			addChromeBrowser();
+            InitTooltips(this.Controls);
+		}
+		private void addChromeBrowser(string url = "",ChromeBrowser chromeBrowser = null)
+		{
+			CurBrowser = chromeBrowser==null? new ChromeBrowser():chromeBrowser;
 			CurBrowser.Dock = DockStyle.Fill;
 			this.browserPannel.Controls.Add(CurBrowser);
-
-			InitTooltips(this.Controls);
-			ConfigureBrowser();
+			configureBrowser();
 			LoadURL(url);
 			currentFullURL = url;
 		}
@@ -125,19 +104,8 @@ namespace SharpBrowser
 		/// <summary>
 		/// this is done every time a new tab is openede
 		/// </summary>
-		private void ConfigureBrowser()
+		private void configureBrowser()
 		{
-
-			BrowserSettings config = new BrowserSettings();
-
-			config.FileAccessFromFileUrls = (!CrossDomainSecurity).ToCefState();
-			config.UniversalAccessFromFileUrls = (!CrossDomainSecurity).ToCefState();
-			config.WebSecurity = WebSecurity.ToCefState();
-			config.WebGl = WebGL.ToCefState();
-			config.ApplicationCache = ApplicationCache.ToCefState();
-
-			CurBrowser.BrowserSettings = config;
-
 			CurBrowser.StatusMessage += Browser_StatusMessage;
 			CurBrowser.LoadingStateChanged += Browser_LoadingStateChanged;
 			CurBrowser.TitleChanged += Browser_TitleChanged;
@@ -145,25 +113,8 @@ namespace SharpBrowser
 			CurBrowser.AddressChanged += Browser_URLChanged;
 
 			CurBrowser.MenuHandler = new ContextMenuHandler(this);
-			//CurBrowser.LifeSpanHandler = lHandler;
-			//CurBrowser.KeyboardHandler = kHandler;
-			//CurBrowser.RequestHandler = rHandler;
-
-
-
 		}
 
-
-		private static string GetAppDir(string name)
-		{
-			string winXPDir = @"C:\Documents and Settings\All Users\Application Data\";
-			if (Directory.Exists(winXPDir))
-			{
-				return winXPDir + Branding + @"\" + name + @"\";
-			}
-			return @"C:\ProgramData\" + Branding + @"\" + name + @"\";
-
-		}
 
 		private void LoadURL(string url)
 		{
@@ -192,12 +143,16 @@ namespace SharpBrowser
 
 				Uri.TryCreate(url, UriKind.Absolute, out outUri);
 
-				if (!(urlLower.StartsWith("http") || urlLower.StartsWith(InternalURL)))
+				if (!(urlLower.StartsWith("http") || urlLower.StartsWith(ChromeBrowser.InternalURL)))
 				{
-					if (outUri == null || outUri.Scheme != Uri.UriSchemeFile) newUrl = "http://" + url;
+					
+					if (outUri == null || outUri.Scheme != Uri.UriSchemeFile)
+					{
+						newUrl = "http://" + url;
+					}
 				}
 
-				if (urlLower.StartsWith(InternalURL + ":") ||
+				if (urlLower.StartsWith(ChromeBrowser.InternalURL + ":") ||
 
 					// load URL if it seems valid
 					(Uri.TryCreate(newUrl, UriKind.Absolute, out outUri)
@@ -209,7 +164,7 @@ namespace SharpBrowser
 				{
 
 					// run search if unknown URL
-					newUrl = SearchURL + HttpUtility.UrlEncode(url);
+					newUrl = ChromeBrowser.SearchURL + HttpUtility.UrlEncode(url);
 
 				}
 
@@ -262,7 +217,7 @@ namespace SharpBrowser
 		}
 		private bool IsBlankOrSystem(string url)
 		{
-			return (url == "" || url.BeginsWith("about:") || url.BeginsWith("chrome:") || url.BeginsWith(InternalURL + ":"));
+			return (url == "" || url.BeginsWith("about:") || url.BeginsWith("chrome:") || url.BeginsWith(ChromeBrowser.InternalURL + ":"));
 		}
 
 		
@@ -380,13 +335,13 @@ namespace SharpBrowser
 		{
 		}
 
-		public void WaitForBrowserToInitialize(ChromiumWebBrowser browser)
-		{
-			while (!browser.IsBrowserInitialized)
-			{
-				Thread.Sleep(100);
-			}
-		}
+		//public void WaitForBrowserToInitialize(ChromiumWebBrowser browser)
+		//{
+		//	while (!browser.IsBrowserInitialized)
+		//	{
+		//		Thread.Sleep(100);
+		//	}
+		//}
 
 		private void EnableBackButton(bool canGoBack)
 		{
@@ -423,7 +378,7 @@ namespace SharpBrowser
 		{
 			if(OpenTab != null)
 			{
-				OpenTab(DownloadsURL,"");
+				OpenTab(ChromeBrowser.DownloadPageURL, "");
 			}
 		}
 
@@ -586,7 +541,7 @@ namespace SharpBrowser
 		#region Home Button
 		private void BtnHome_Click(object sender, EventArgs e)
 		{
-			CurBrowser.Load(HomepageURL);
+			CurBrowser.Load(ChromeBrowser.HomepageURL);
 		}
 		#endregion
 	}

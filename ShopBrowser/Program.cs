@@ -64,8 +64,8 @@ namespace ShopeeChat
                             {
                                 BrowerHelper.ClearCache();
                             }
-                            GroupConfigHelper.Instatce.Initialize(logForm.UserName);
                             BrowerHelper.Instatce.Initialize(logForm.UserName);
+                            GroupConfigHelper.Instatce.Initialize(logForm.UserName);
                             GroupConfigHelper.Instatce.StartStoreInfoTask();
                             Application.Run(new MainForm(logForm.UserName));
                         }

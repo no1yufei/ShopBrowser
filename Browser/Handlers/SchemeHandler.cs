@@ -8,21 +8,25 @@ using CefSharp;
 using System.Windows.Forms;
 using System.Drawing;
 using CefSharp.Callback;
+using Common.Browser;
 
 namespace SharpBrowser {
-	internal class SchemeHandler : IResourceHandler, IDisposable {
+	internal class MySchemeHandler : IResourceHandler, IDisposable {
 		private static string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\";
 
 		private string mimeType;
 		private Stream stream;
-		BrowserMainControl myForm;
+		//ChromeBrowser myForm;
 		private Uri uri;
 		private string fileName;
 
-		public SchemeHandler(BrowserMainControl form) {
-			myForm = form;
+		//public SchemeHandler(ChromeBrowser form) {
+		//	myForm = form;
+		//}
+		public MySchemeHandler()
+		{
+			int i = 0;
 		}
-
 		public void Dispose() {
 
 		}

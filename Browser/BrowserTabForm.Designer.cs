@@ -1,4 +1,6 @@
-﻿namespace SharpBrowser
+﻿using Common.Browser;
+
+namespace SharpBrowser
 {
     partial class BrowserTabForm
     {
@@ -42,7 +44,6 @@
             this.BtnPrevSearch = new System.Windows.Forms.Button();
             this.BtnCloseSearch = new System.Windows.Forms.Button();
             this.TxtSearch = new System.Windows.Forms.TextBox();
-            this.CurBrowser = new CefSharp.WinForms.ChromiumWebBrowser();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.browserPannel = new System.Windows.Forms.Panel();
@@ -249,16 +250,7 @@
             this.TxtSearch.Size = new System.Drawing.Size(181, 25);
             this.TxtSearch.TabIndex = 6;
             this.TxtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtSearch_KeyDown);
-            // 
-            // CurBrowser
-            // 
-            this.CurBrowser.ActivateBrowserOnCreation = false;
-            this.CurBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CurBrowser.Location = new System.Drawing.Point(0, 1);
-            this.CurBrowser.Margin = new System.Windows.Forms.Padding(0, 10, 0, 0);
-            this.CurBrowser.Name = "CurBrowser";
-            this.CurBrowser.Size = new System.Drawing.Size(771, 375);
-            this.CurBrowser.TabIndex = 11;
+            
             // 
             // toolStrip1
             // 
@@ -286,7 +278,6 @@
             // 
             this.browserPannel.BackColor = System.Drawing.SystemColors.Control;
             this.browserPannel.Controls.Add(this.PanelSearch);
-            this.browserPannel.Controls.Add(this.CurBrowser);
             this.browserPannel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.browserPannel.ForeColor = System.Drawing.SystemColors.Control;
             this.browserPannel.Location = new System.Drawing.Point(0, 30);
@@ -367,7 +358,7 @@
         private System.Windows.Forms.Button BtnPrevSearch;
         private System.Windows.Forms.Button BtnCloseSearch;
         private System.Windows.Forms.TextBox TxtSearch;
-        public CefSharp.WinForms.ChromiumWebBrowser CurBrowser;
+        
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.Panel browserPannel;

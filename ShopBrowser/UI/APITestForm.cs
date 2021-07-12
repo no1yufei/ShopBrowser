@@ -227,23 +227,23 @@ namespace ShopeeChat.Shopee
         private List<StoreRegion> initRegionData()
         {
             List<StoreRegion> tempmerchantAccountInfos = new List<StoreRegion>();
-            if (Path.GetFileName(Assembly.GetExecutingAssembly().Location).ToLower().Contains("tw"))
-            {
-                tempmerchantAccountInfos.Add(new StoreRegion("tw", "台湾", "https://seller.shopee.tw", "https://shopee.tw"));
-                this.Text += "TW";
-                Console.WriteLine("使用tw链接");
-            }
-            else
-            {
-                tempmerchantAccountInfos.Add(new StoreRegion("tw", "台湾", "https://seller.xiapi.shopee.cn", "https://xiapi.xiapibuy.com"));
-                Console.WriteLine("使用cn链接");
-            }
-            tempmerchantAccountInfos.Add(new StoreRegion("id", "印度尼西亚", "https://seller.shopee.co.id", "https://shopee.co.id"));
-            tempmerchantAccountInfos.Add(new StoreRegion("th", "泰国", "https://seller.shopee.co.th", "https://seller.shopee.co.th"));
-            tempmerchantAccountInfos.Add(new StoreRegion("sg", "新加坡", "https://seller.shopee.sg", "https://shopee.sg"));
-            tempmerchantAccountInfos.Add(new StoreRegion("ph", "菲律宾", "https://seller.shopee.ph", "https://shopee.ph"));
-            tempmerchantAccountInfos.Add(new StoreRegion("my", "马来西亚", "https://seller.shopee.com.my", "https://shopee.com.my"));
-            tempmerchantAccountInfos.Add(new StoreRegion("vn", "越南", "https://banhang.shopee.vn", "https://shopee.vn"));
+            //if (Path.GetFileName(Assembly.GetExecutingAssembly().Location).ToLower().Contains("tw"))
+            //{
+            //    tempmerchantAccountInfos.Add(new StoreRegion("tw", "台湾", "https://seller.shopee.tw", "https://shopee.tw"));
+            //    this.Text += "TW";
+            //    Console.WriteLine("使用tw链接");
+            //}
+            //else
+            //{
+            //    tempmerchantAccountInfos.Add(new StoreRegion("tw", "台湾", "https://seller.xiapi.shopee.cn", "https://xiapi.xiapibuy.com"));
+            //    Console.WriteLine("使用cn链接");
+            //}
+            //tempmerchantAccountInfos.Add(new StoreRegion("id", "印度尼西亚", "https://seller.shopee.co.id", "https://shopee.co.id"));
+            //tempmerchantAccountInfos.Add(new StoreRegion("th", "泰国", "https://seller.shopee.co.th", "https://seller.shopee.co.th"));
+            //tempmerchantAccountInfos.Add(new StoreRegion("sg", "新加坡", "https://seller.shopee.sg", "https://shopee.sg"));
+            //tempmerchantAccountInfos.Add(new StoreRegion("ph", "菲律宾", "https://seller.shopee.ph", "https://shopee.ph"));
+            //tempmerchantAccountInfos.Add(new StoreRegion("my", "马来西亚", "https://seller.shopee.com.my", "https://shopee.com.my"));
+            //tempmerchantAccountInfos.Add(new StoreRegion("vn", "越南", "https://banhang.shopee.vn", "https://shopee.vn"));
             return tempmerchantAccountInfos;
         }
 

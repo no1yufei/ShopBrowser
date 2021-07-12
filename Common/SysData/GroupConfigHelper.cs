@@ -268,13 +268,20 @@ namespace ShopeeChat.SysData
                     while (null != group)
                     {
                         group.MessageUpdateTime = updateTime;
+                        if (group.Plateform != 1)
+                        {
+                            group = GroupConfigHelper.Instatce.Groups.FirstOrDefault(p => p.MessageUpdateTime != updateTime);
+                            Thread.Sleep(2000);
+                            continue;
+                        }
+                       
                         bool isNewMesage = false;
                         bool isUpdate = false;
                         StoreRegion region = group.Regions.FirstOrDefault(p => p.MessageUpdateTime != updateTime);
                         while (null != region)
                         {
                             region.MessageUpdateTime = updateTime;
-                            if (region.Stores.Count <= 0)
+                            if (region.Stores.Count <= 0 || region.RegionID == "gl")
                             {
                                 region = group.Regions.FirstOrDefault(p => p.MessageUpdateTime != updateTime);
                                 continue;
@@ -529,6 +536,14 @@ namespace ShopeeChat.SysData
                     StoreGroup group = GroupConfigHelper.Instatce.Groups.FirstOrDefault(p => p.OrderUpdateTime != updateTime);
                     while(null != group)
                     {
+                        group.MessageUpdateTime = updateTime;
+                        if (group.Plateform != 1)
+                        {
+                            group = GroupConfigHelper.Instatce.Groups.FirstOrDefault(p => p.MessageUpdateTime != updateTime);
+                            Thread.Sleep(2000);
+                            continue;
+                        }
+
                         group.OrderUpdateTime = updateTime;
                         bool isNewOrder = false;
                         bool isUpdate = false;
@@ -536,7 +551,7 @@ namespace ShopeeChat.SysData
                         while (null != region)
                         {
                             region.OrderUpdateTime = updateTime;
-                            if (region.Stores.Count <= 0)
+                            if (region.Stores.Count <= 0 || region.RegionID == "gl")
                             {
                                 region = group.Regions.FirstOrDefault(p => p.OrderUpdateTime != updateTime);
                                 continue;

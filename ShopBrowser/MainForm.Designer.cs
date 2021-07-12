@@ -34,12 +34,7 @@
             this.chatFormNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.imageListTabIcon = new System.Windows.Forms.ImageList(this.components);
             this.mainSPContainer = new System.Windows.Forms.SplitContainer();
-            this.chatSPContainer = new System.Windows.Forms.SplitContainer();
-            this.contentSplitPannel = new System.Windows.Forms.SplitContainer();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.transGBox = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.logRTBox = new System.Windows.Forms.RichTextBox();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.accountMangerTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.creatShopGroupToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,25 +54,34 @@
             this.zoomTSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.quitTSMItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.versionTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTMSI = new System.Windows.Forms.ToolStripMenuItem();
             this.DNSTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.ipconfigTSMI = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.软件版本ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.usernameTsLabel = new System.Windows.Forms.ToolStripLabel();
+            this.chatSPContainer = new System.Windows.Forms.SplitContainer();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.transUISwitchBtn = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.contentSplitPannel = new System.Windows.Forms.SplitContainer();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.transGBox = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.logRTBox = new System.Windows.Forms.RichTextBox();
+            this.dNS设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.网络环境ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.mainSPContainer)).BeginInit();
             this.mainSPContainer.Panel1.SuspendLayout();
             this.mainSPContainer.Panel2.SuspendLayout();
             this.mainSPContainer.SuspendLayout();
+            this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chatSPContainer)).BeginInit();
             this.chatSPContainer.Panel2.SuspendLayout();
             this.chatSPContainer.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.contentSplitPannel)).BeginInit();
             this.contentSplitPannel.Panel2.SuspendLayout();
             this.contentSplitPannel.SuspendLayout();
@@ -86,8 +90,6 @@
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.menuStrip.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeImageList
@@ -154,94 +156,22 @@
             this.mainSPContainer.SplitterWidth = 1;
             this.mainSPContainer.TabIndex = 4;
             // 
-            // chatSPContainer
+            // menuStrip
             // 
-            this.chatSPContainer.BackColor = System.Drawing.SystemColors.Control;
-            this.chatSPContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chatSPContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.chatSPContainer.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.chatSPContainer.Location = new System.Drawing.Point(0, 0);
-            this.chatSPContainer.Margin = new System.Windows.Forms.Padding(4);
-            this.chatSPContainer.Name = "chatSPContainer";
-            // 
-            // chatSPContainer.Panel2
-            // 
-            this.chatSPContainer.Panel2.AutoScroll = true;
-            this.chatSPContainer.Panel2.Controls.Add(this.statusStrip1);
-            this.chatSPContainer.Panel2.Controls.Add(this.contentSplitPannel);
-            this.chatSPContainer.Size = new System.Drawing.Size(899, 779);
-            this.chatSPContainer.SplitterDistance = 322;
-            this.chatSPContainer.SplitterWidth = 1;
-            this.chatSPContainer.TabIndex = 2;
-            // 
-            // contentSplitPannel
-            // 
-            this.contentSplitPannel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.contentSplitPannel.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.contentSplitPannel.Location = new System.Drawing.Point(0, 0);
-            this.contentSplitPannel.Name = "contentSplitPannel";
-            this.contentSplitPannel.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // contentSplitPannel.Panel2
-            // 
-            this.contentSplitPannel.Panel2.Controls.Add(this.splitContainer3);
-            this.contentSplitPannel.Panel2Collapsed = true;
-            this.contentSplitPannel.Size = new System.Drawing.Size(576, 779);
-            this.contentSplitPannel.SplitterDistance = 638;
-            this.contentSplitPannel.TabIndex = 0;
-            // 
-            // splitContainer3
-            // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Name = "splitContainer3";
-            // 
-            // splitContainer3.Panel1
-            // 
-            this.splitContainer3.Panel1.Controls.Add(this.transGBox);
-            // 
-            // splitContainer3.Panel2
-            // 
-            this.splitContainer3.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer3.Size = new System.Drawing.Size(576, 137);
-            this.splitContainer3.SplitterDistance = 346;
-            this.splitContainer3.TabIndex = 1;
-            // 
-            // transGBox
-            // 
-            this.transGBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.transGBox.Location = new System.Drawing.Point(0, 0);
-            this.transGBox.Margin = new System.Windows.Forms.Padding(0);
-            this.transGBox.Name = "transGBox";
-            this.transGBox.Padding = new System.Windows.Forms.Padding(0);
-            this.transGBox.Size = new System.Drawing.Size(346, 137);
-            this.transGBox.TabIndex = 0;
-            this.transGBox.TabStop = false;
-            this.transGBox.Text = "文本翻译";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.logRTBox);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.groupBox1.Size = new System.Drawing.Size(226, 137);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "系统消息";
-            // 
-            // logRTBox
-            // 
-            this.logRTBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logRTBox.Location = new System.Drawing.Point(0, 16);
-            this.logRTBox.Margin = new System.Windows.Forms.Padding(0);
-            this.logRTBox.Name = "logRTBox";
-            this.logRTBox.ReadOnly = true;
-            this.logRTBox.Size = new System.Drawing.Size(226, 121);
-            this.logRTBox.TabIndex = 0;
-            this.logRTBox.Text = "";
+            this.menuStrip.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.menuStrip.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripDropDownButton1,
+            this.toolStripMenuItem1,
+            this.versionTSMI,
+            this.usernameTsLabel});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
+            this.menuStrip.Size = new System.Drawing.Size(899, 36);
+            this.menuStrip.TabIndex = 1;
+            this.menuStrip.Text = "menuStrip1";
             // 
             // toolStripDropDownButton1
             // 
@@ -283,37 +213,45 @@
             // creatShopGroupToolStripMenuItem1
             // 
             this.creatShopGroupToolStripMenuItem1.Name = "creatShopGroupToolStripMenuItem1";
-            this.creatShopGroupToolStripMenuItem1.Size = new System.Drawing.Size(134, 24);
+            this.creatShopGroupToolStripMenuItem1.Size = new System.Drawing.Size(180, 24);
             this.creatShopGroupToolStripMenuItem1.Text = "添加店群";
+            this.creatShopGroupToolStripMenuItem1.Click += new System.EventHandler(this.CreatShopGroupToolStripMenuItem1_Click);
             // 
             // addStoreTMSI
             // 
             this.addStoreTMSI.Name = "addStoreTMSI";
-            this.addStoreTMSI.Size = new System.Drawing.Size(134, 24);
+            this.addStoreTMSI.Size = new System.Drawing.Size(180, 24);
             this.addStoreTMSI.Text = "添加店铺";
+            this.addStoreTMSI.Click += new System.EventHandler(this.addStoreTMSI_Click);
             // 
             // createTemplateTMSI
             // 
             this.createTemplateTMSI.Name = "createTemplateTMSI";
-            this.createTemplateTMSI.Size = new System.Drawing.Size(134, 24);
+            this.createTemplateTMSI.Size = new System.Drawing.Size(180, 24);
             this.createTemplateTMSI.Text = "创建模板";
+            this.createTemplateTMSI.Click += new System.EventHandler(this.createTemplateTMSI_Click);
             // 
             // importDataTSMI
             // 
             this.importDataTSMI.Name = "importDataTSMI";
-            this.importDataTSMI.Size = new System.Drawing.Size(134, 24);
+            this.importDataTSMI.Size = new System.Drawing.Size(180, 24);
             this.importDataTSMI.Text = "导入模板";
+            this.importDataTSMI.Click += new System.EventHandler(this.importDataTSMI_Click);
             // 
             // 还原配置ToolStripMenuItem
             // 
             this.还原配置ToolStripMenuItem.Name = "还原配置ToolStripMenuItem";
-            this.还原配置ToolStripMenuItem.Size = new System.Drawing.Size(134, 24);
+            this.还原配置ToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.还原配置ToolStripMenuItem.Text = "清除配置";
+            this.还原配置ToolStripMenuItem.Click += new System.EventHandler(this.还原配置ToolStripMenuItem_Click);
             // 
             // networkSettingToolStripMenuItem
             // 
+            this.networkSettingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dNS设置ToolStripMenuItem,
+            this.网络环境ToolStripMenuItem});
             this.networkSettingToolStripMenuItem.Name = "networkSettingToolStripMenuItem";
-            this.networkSettingToolStripMenuItem.Size = new System.Drawing.Size(134, 24);
+            this.networkSettingToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.networkSettingToolStripMenuItem.Text = "网络设置";
             // 
             // 粉丝关注ToolStripMenuItem
@@ -324,6 +262,7 @@
             this.粉丝关注ToolStripMenuItem.Name = "粉丝关注ToolStripMenuItem";
             this.粉丝关注ToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.粉丝关注ToolStripMenuItem.Text = "粉丝关注(F)";
+            this.粉丝关注ToolStripMenuItem.Click += new System.EventHandler(this.粉丝关注ToolStripMenuItem_Click);
             // 
             // 消息群发ToolStripMenuItem
             // 
@@ -341,19 +280,21 @@
             // 订单列表群发ToolStripMenuItem
             // 
             this.订单列表群发ToolStripMenuItem.Name = "订单列表群发ToolStripMenuItem";
-            this.订单列表群发ToolStripMenuItem.Size = new System.Drawing.Size(162, 24);
+            this.订单列表群发ToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.订单列表群发ToolStripMenuItem.Text = "订单列表群发";
+            this.订单列表群发ToolStripMenuItem.Click += new System.EventHandler(this.订单列表群发ToolStripMenuItem_Click);
             // 
             // 买家群发ToolStripMenuItem
             // 
             this.买家群发ToolStripMenuItem.Name = "买家群发ToolStripMenuItem";
-            this.买家群发ToolStripMenuItem.Size = new System.Drawing.Size(162, 24);
+            this.买家群发ToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.买家群发ToolStripMenuItem.Text = "聊聊列表群发";
+            this.买家群发ToolStripMenuItem.Click += new System.EventHandler(this.定向群发ToolStripMenuItem1_Click);
             // 
             // 搜索群发ToolStripMenuItem
             // 
             this.搜索群发ToolStripMenuItem.Name = "搜索群发ToolStripMenuItem";
-            this.搜索群发ToolStripMenuItem.Size = new System.Drawing.Size(159, 6);
+            this.搜索群发ToolStripMenuItem.Size = new System.Drawing.Size(177, 6);
             // 
             // toolStripSeparator2
             // 
@@ -405,19 +346,31 @@
             this.quitTSMItem.Text = "退出";
             this.quitTSMItem.Click += new System.EventHandler(this.quitTSMItem_Click);
             // 
-            // 关于ToolStripMenuItem
+            // toolStripMenuItem1
             // 
-            this.关于ToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.关于ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripMenuItem1.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
+            this.toolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.White;
+            this.toolStripMenuItem1.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(36, 30);
+            this.toolStripMenuItem1.ToolTipText = "关 闭";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.quitTSMItem_Click);
+            // 
+            // versionTSMI
+            // 
+            this.versionTSMI.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.versionTSMI.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolTMSI,
             this.帮助信息ToolStripMenuItem,
             this.软件版本ToolStripMenuItem});
-            this.关于ToolStripMenuItem.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.关于ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("关于ToolStripMenuItem.Image")));
-            this.关于ToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.White;
-            this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(123, 30);
-            this.关于ToolStripMenuItem.Text = "版本V2.0.0.1";
+            this.versionTSMI.Font = new System.Drawing.Font("微软雅黑", 10F);
+            this.versionTSMI.Image = ((System.Drawing.Image)(resources.GetObject("versionTSMI.Image")));
+            this.versionTSMI.ImageTransparentColor = System.Drawing.Color.White;
+            this.versionTSMI.Name = "versionTSMI";
+            this.versionTSMI.Size = new System.Drawing.Size(123, 30);
+            this.versionTSMI.Text = "版本V2.0.0.1";
             // 
             // toolTMSI
             // 
@@ -434,63 +387,58 @@
             // DNSTSMI
             // 
             this.DNSTSMI.Name = "DNSTSMI";
-            this.DNSTSMI.Size = new System.Drawing.Size(162, 24);
+            this.DNSTSMI.Size = new System.Drawing.Size(180, 24);
             this.DNSTSMI.Text = "设置DNS";
+            this.DNSTSMI.Click += new System.EventHandler(this.DNSTSMI_Click);
             // 
             // ipconfigTSMI
             // 
             this.ipconfigTSMI.Name = "ipconfigTSMI";
-            this.ipconfigTSMI.Size = new System.Drawing.Size(162, 24);
+            this.ipconfigTSMI.Size = new System.Drawing.Size(180, 24);
             this.ipconfigTSMI.Text = "查看网络设置";
+            this.ipconfigTSMI.Click += new System.EventHandler(this.ipconfigTSMI_Click);
             // 
             // 帮助信息ToolStripMenuItem
             // 
             this.帮助信息ToolStripMenuItem.Name = "帮助信息ToolStripMenuItem";
             this.帮助信息ToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.帮助信息ToolStripMenuItem.Text = "帮助信息";
+            this.帮助信息ToolStripMenuItem.Click += new System.EventHandler(this.帮助信息ToolStripMenuItem_Click);
             // 
             // 软件版本ToolStripMenuItem
             // 
             this.软件版本ToolStripMenuItem.Name = "软件版本ToolStripMenuItem";
             this.软件版本ToolStripMenuItem.Size = new System.Drawing.Size(188, 30);
             this.软件版本ToolStripMenuItem.Text = "软件版本";
+            this.软件版本ToolStripMenuItem.Click += new System.EventHandler(this.软件版本ToolStripMenuItem_Click);
             // 
-            // toolStripLabel1
+            // usernameTsLabel
             // 
-            this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripLabel1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel1.Image")));
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(132, 27);
-            this.toolStripLabel1.Text = "13425255929";
+            this.usernameTsLabel.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.usernameTsLabel.Image = ((System.Drawing.Image)(resources.GetObject("usernameTsLabel.Image")));
+            this.usernameTsLabel.Name = "usernameTsLabel";
+            this.usernameTsLabel.Size = new System.Drawing.Size(132, 27);
+            this.usernameTsLabel.Text = "13425255929";
             // 
-            // menuStrip
+            // chatSPContainer
             // 
-            this.menuStrip.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.menuStrip.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.menuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripDropDownButton1,
-            this.toolStripMenuItem1,
-            this.关于ToolStripMenuItem,
-            this.toolStripLabel1});
-            this.menuStrip.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
-            this.menuStrip.Size = new System.Drawing.Size(899, 36);
-            this.menuStrip.TabIndex = 1;
-            this.menuStrip.Text = "menuStrip1";
+            this.chatSPContainer.BackColor = System.Drawing.SystemColors.Control;
+            this.chatSPContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chatSPContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.chatSPContainer.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.chatSPContainer.Location = new System.Drawing.Point(0, 0);
+            this.chatSPContainer.Margin = new System.Windows.Forms.Padding(4);
+            this.chatSPContainer.Name = "chatSPContainer";
             // 
-            // toolStripMenuItem1
+            // chatSPContainer.Panel2
             // 
-            this.toolStripMenuItem1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripMenuItem1.Font = new System.Drawing.Font("微软雅黑", 10F);
-            this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
-            this.toolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.White;
-            this.toolStripMenuItem1.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(36, 30);
-            this.toolStripMenuItem1.ToolTipText = "关 闭";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.quitTSMItem_Click);
+            this.chatSPContainer.Panel2.AutoScroll = true;
+            this.chatSPContainer.Panel2.Controls.Add(this.statusStrip1);
+            this.chatSPContainer.Panel2.Controls.Add(this.contentSplitPannel);
+            this.chatSPContainer.Size = new System.Drawing.Size(899, 779);
+            this.chatSPContainer.SplitterDistance = 322;
+            this.chatSPContainer.SplitterWidth = 1;
+            this.chatSPContainer.TabIndex = 2;
             // 
             // statusStrip1
             // 
@@ -526,6 +474,89 @@
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.Click += new System.EventHandler(this.toolStripStatusLabel1_Click);
             // 
+            // contentSplitPannel
+            // 
+            this.contentSplitPannel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.contentSplitPannel.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.contentSplitPannel.Location = new System.Drawing.Point(0, 0);
+            this.contentSplitPannel.Name = "contentSplitPannel";
+            this.contentSplitPannel.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // contentSplitPannel.Panel2
+            // 
+            this.contentSplitPannel.Panel2.Controls.Add(this.splitContainer3);
+            this.contentSplitPannel.Panel2Collapsed = true;
+            this.contentSplitPannel.Size = new System.Drawing.Size(576, 779);
+            this.contentSplitPannel.SplitterDistance = 638;
+            this.contentSplitPannel.TabIndex = 0;
+            // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.transGBox);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.groupBox1);
+            this.splitContainer3.Size = new System.Drawing.Size(150, 46);
+            this.splitContainer3.SplitterDistance = 90;
+            this.splitContainer3.TabIndex = 1;
+            // 
+            // transGBox
+            // 
+            this.transGBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.transGBox.Location = new System.Drawing.Point(0, 0);
+            this.transGBox.Margin = new System.Windows.Forms.Padding(0);
+            this.transGBox.Name = "transGBox";
+            this.transGBox.Padding = new System.Windows.Forms.Padding(0);
+            this.transGBox.Size = new System.Drawing.Size(90, 46);
+            this.transGBox.TabIndex = 0;
+            this.transGBox.TabStop = false;
+            this.transGBox.Text = "文本翻译";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.logRTBox);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(0);
+            this.groupBox1.Size = new System.Drawing.Size(56, 46);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "系统消息";
+            // 
+            // logRTBox
+            // 
+            this.logRTBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logRTBox.Location = new System.Drawing.Point(0, 16);
+            this.logRTBox.Margin = new System.Windows.Forms.Padding(0);
+            this.logRTBox.Name = "logRTBox";
+            this.logRTBox.ReadOnly = true;
+            this.logRTBox.Size = new System.Drawing.Size(56, 30);
+            this.logRTBox.TabIndex = 0;
+            this.logRTBox.Text = "";
+            // 
+            // dNS设置ToolStripMenuItem
+            // 
+            this.dNS设置ToolStripMenuItem.Name = "dNS设置ToolStripMenuItem";
+            this.dNS设置ToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.dNS设置ToolStripMenuItem.Text = "DNS设置";
+            this.dNS设置ToolStripMenuItem.Click += new System.EventHandler(this.DNSTSMI_Click);
+            // 
+            // 网络环境ToolStripMenuItem
+            // 
+            this.网络环境ToolStripMenuItem.Name = "网络环境ToolStripMenuItem";
+            this.网络环境ToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.网络环境ToolStripMenuItem.Text = "网络环境";
+            this.网络环境ToolStripMenuItem.Click += new System.EventHandler(this.ipconfigTSMI_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -546,10 +577,14 @@
             this.mainSPContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSPContainer)).EndInit();
             this.mainSPContainer.ResumeLayout(false);
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.chatSPContainer.Panel2.ResumeLayout(false);
             this.chatSPContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chatSPContainer)).EndInit();
             this.chatSPContainer.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.contentSplitPannel.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.contentSplitPannel)).EndInit();
             this.contentSplitPannel.ResumeLayout(false);
@@ -558,10 +593,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.menuStrip.ResumeLayout(false);
-            this.menuStrip.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -598,15 +629,17 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem quitTSMItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem versionTSMI;
         private System.Windows.Forms.ToolStripMenuItem toolTMSI;
         private System.Windows.Forms.ToolStripMenuItem DNSTSMI;
         private System.Windows.Forms.ToolStripMenuItem ipconfigTSMI;
         private System.Windows.Forms.ToolStripMenuItem 帮助信息ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 软件版本ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripLabel usernameTsLabel;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripDropDownButton transUISwitchBtn;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripMenuItem dNS设置ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 网络环境ToolStripMenuItem;
     }
 }

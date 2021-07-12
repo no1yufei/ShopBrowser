@@ -1,10 +1,10 @@
 using CefSharp;
 
 namespace SharpBrowser {
-	internal class SchemeHandlerFactory : ISchemeHandlerFactory {
+	internal class MySchemeHandlerFactory : ISchemeHandlerFactory {
 
 		public IResourceHandler Create(IBrowser browser, IFrame frame, string schemeName, IRequest request) {
-			return new SchemeHandler(BrowserMainControl.Instance);
+			return new MySchemeHandler();
 		}
 	}
 }

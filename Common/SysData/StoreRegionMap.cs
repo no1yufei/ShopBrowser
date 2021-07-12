@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NPOI.OpenXmlFormats.Dml;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,39 +12,44 @@ namespace ShopeeChat.SysData
 {
     public class StoreRegionMap
     {
-        private static List<StoreRegion> Regions = GetRegionList();
-        static public List<StoreRegion> GetRegionList()
-        {
-            string strFullPath = Application.ExecutablePath;
-            string filename = Path.GetFileName(strFullPath);
+       
 
-            if (strFullPath.ToLower().Contains("tw"))
-            {
-                Console.WriteLine("启动台湾翻墙设置！");
-                return new List<StoreRegion>() {
-                    new StoreRegion("tw", "台湾", "https://seller.xiapi.shopee.cn","https://xiapi.xiapibuy.com"),
-                    new StoreRegion("sg", "新加坡", "https://seller.sg.shopee.cn", "https://shopee.sg"),
-                    new StoreRegion("my", "马来西亚", "https://seller.my.shopee.cn", "https://shopee.com.my"),
-                    new StoreRegion("th", "泰国", "https://seller.th.shopee.cn", "https://shopee.co.th"),
-                    new StoreRegion("id", "印度尼西亚", "https://seller.id.shopee.cn", "https://shopee.co.id"),
-                    new StoreRegion("ph", "菲律宾", "https://seller.ph.shopee.cn", "https://shopee.ph"),
-                    new StoreRegion("vn", "越南", "https://seller.vn.shopee.cn", "https://shopee.vn"),
-                    new StoreRegion("br","巴西","https://seller.br.shopee.cn","https://br.xiapibuy.com")
-                };
-            }
-            else
-            {
-                return new List<StoreRegion>() {
-                    new StoreRegion("tw", "台湾", "https://seller.xiapi.shopee.cn", "https://xiapi.xiapibuy.com"),
-                    new StoreRegion("sg", "新加坡", "https://seller.sg.shopee.cn", "https://shopee.sg"),
-                    new StoreRegion("my", "马来西亚", "https://seller.my.shopee.cn", "https://shopee.com.my"),
-                    new StoreRegion("th", "泰国", "https://seller.th.shopee.cn", "https://shopee.co.th"),
-                    new StoreRegion("id", "印度尼西亚", "https://seller.id.shopee.cn", "https://shopee.co.id"),
-                    new StoreRegion("ph", "菲律宾", "https://seller.ph.shopee.cn", "https://shopee.ph"),
-                    new StoreRegion("vn", "越南", "https://seller.vn.shopee.cn", "https://shopee.vn"),
-                    new StoreRegion("br","巴西","https://seller.br.shopee.cn","https://br.xiapibuy.com")
-                };
-            }
+        private readonly static Dictionary<int, List<StoreRegion>> platfomregions = 
+            new Dictionary<int, List<StoreRegion>>{
+                { 0,new List<StoreRegion>() {
+                       new StoreRegion(0,"gl", "中国", "http://www.uc.dianliaotong.com","http://www.dianliaotong.com"),
+                    }
+                },
+                { 1,new List<StoreRegion>() {
+                       new StoreRegion(1,"gl", "中国卖家全球账号", "https://seller.shopee.cn","https://xiapi.xiapibuy.com"),
+                       new StoreRegion(1,"tw", "台湾", "https://seller.xiapi.shopee.cn","https://xiapi.xiapibuy.com"),
+                       new StoreRegion(1,"sg", "新加坡", "https://seller.sg.shopee.cn", "https://shopee.sg"),
+                       new StoreRegion(1,"my", "马来西亚", "https://seller.my.shopee.cn", "https://shopee.com.my"),
+                       new StoreRegion(1,"th", "泰国", "https://seller.th.shopee.cn", "https://shopee.co.th"),
+                       new StoreRegion(1,"id", "印度尼西亚", "https://seller.id.shopee.cn", "https://shopee.co.id"),
+                       new StoreRegion(1,"ph", "菲律宾", "https://seller.ph.shopee.cn", "https://shopee.ph"),
+                       new StoreRegion(1,"vn", "越南", "https://seller.vn.shopee.cn", "https://shopee.vn"),
+                       new StoreRegion(1,"br","巴西","https://seller.br.shopee.cn","https://br.xiapibuy.com")
+                    }
+                },
+                { 2,new List<StoreRegion>() {
+                       new StoreRegion(2,"gl", "lazada跨境", "https://sellercenter-my.lazada-seller.cn/","https://www.lazada.sg/"),
+                    }
+                },
+                { 3,new List<StoreRegion>() {
+                       new StoreRegion(3,"tb", "淘宝中国", "https://myseller.taobao.com","https://www.taobao.com")
+
+                    }
+                },
+                { 4,new List<StoreRegion>() {
+                       new StoreRegion(4,"gl", "中国", "http://www.uc.dianliaotong.com","http://www.dianliaotong.com"),
+                    }
+                }
+            };
+      
+        static public List<StoreRegion> GetRegionList(int plateform = 1)
+        {
+            return platfomregions[plateform];
         }
         static string[][] descriptionLangMap = new string[][]{new string[] {"tw","zh-TW","zh-Hant"},
                                                                new string[]{"sg","en","en"},
@@ -63,19 +69,19 @@ namespace ShopeeChat.SysData
         {
             return descriptionLangMap.First(p => p[0] == reginId)[2];
         }
-        static public String GetRegionID(String regionName)
+        static public String GetRegionID(String regionName,int platfrom=1)
         {
-            return Regions.First(p => p.RegionName.ToLower() == regionName.ToLower()).RegionID;
+            return platfomregions[platfrom].First(p => p.RegionName.ToLower() == regionName.ToLower()).RegionID;
         }
-       static public String GetSellerURL(string id)
+       static public String GetSellerURL(string id, int platfrom = 1)
         {
-            return Regions.First(p=>p.RegionID.ToLower() == id.ToLower()).GetSellerURL();
+            return platfomregions[platfrom].First(p=>p.RegionID.ToLower() == id.ToLower()).GetSellerURL();
         }
-        static public String GetBuyerURL(string id)
+        static public String GetBuyerURL(string id, int platfrom = 1)
         {
-            return Regions.First(p => p.RegionID.ToLower() == id.ToLower()).GetBuyerUrl();
+            return platfomregions[platfrom].First(p => p.RegionID.ToLower() == id.ToLower()).GetBuyerUrl();
         }
-        static public String[] GetBuyerURLs(string id)
+        static public String[] GetBuyerURLs(string id, int platfrom = 1)
         {
             if (id == "tw")
             {
@@ -83,12 +89,12 @@ namespace ShopeeChat.SysData
             }
             else
             {
-                return new string[] { Regions.First(p => p.RegionID.ToLower() == id.ToLower()).GetBuyerUrl() };
+                return new string[] { platfomregions[platfrom].First(p => p.RegionID.ToLower() == id.ToLower()).GetBuyerUrl() };
             }
         }
-        static public String GetRegionName(string id)
+        static public String GetRegionName(string id, int platfrom = 1)
         {
-            return Regions.First(p => p.RegionID.ToLower() == id.ToLower()).RegionName;
+            return platfomregions[platfrom].First(p => p.RegionID.ToLower() == id.ToLower()).RegionName;
         }
     }
     public class RegionBaseInfo

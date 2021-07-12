@@ -33,6 +33,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 using Common.UI;
+using ShopeeChat;
 
 namespace ShopChatPlus.View
 {
@@ -92,7 +93,15 @@ namespace ShopChatPlus.View
                 foreach (Store storeinof in region.Stores)
                 {
                     storeinof.Token = null;
-                    TreeNode storeNode = new TreeNode(storeinof.DisplayName+ " [准备登录,请稍后]");
+                    TreeNode storeNode;
+                    if (group.Plateform==1 && region.RegionID != "gl")
+                    {
+                        storeNode = new TreeNode(storeinof.DisplayName + " [准备登录,请稍后]");
+                    }
+                    else
+                    {
+                        storeNode = new TreeNode(storeinof.DisplayName + " [已绑定]");
+                    }
                     storeNode.ImageIndex = 4;
                     storeNode.Tag = storeinof;
                     regionNode.Nodes.Add(storeNode);
@@ -355,7 +364,25 @@ namespace ShopChatPlus.View
                 MessageBox.Show("请选择一个店群节点！");
             }
         }
+        private void addStoreTsBtn_Click(object sender, EventArgs e)
+        {
+            AddStoreForm addStore = new AddStoreForm(GroupConfigHelper.Instatce.Groups);
+            addStore.ShowDialog();
+            this.InitTreeView();
+        }
 
+        private void addGroupBtn_Click(object sender, EventArgs e)
+        {
+            AddShopGroupForm addGroupForm = new AddShopGroupForm();
+            addGroupForm.ShowDialog();
+            if (null != addGroupForm.ShopGroup)
+            {
+                addGroupForm.ShopGroup.Regions = StoreRegionMap.GetRegionList();
+                GroupConfigHelper.Instatce.Groups.Add(addGroupForm.ShopGroup);
+            }
+
+            this.InitTreeView();
+        }
 
     }
 }

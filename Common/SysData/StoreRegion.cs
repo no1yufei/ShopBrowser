@@ -8,6 +8,7 @@ namespace ShopeeChat.SysData
 {
     public class StoreRegion
     {
+        public int Plateform = 1;
         public string  RegionName;
         public string RegionID;
         private string sellerURL;
@@ -21,7 +22,7 @@ namespace ShopeeChat.SysData
         {
             if(sellerURL == null)
             {
-                sellerURL = StoreRegionMap.GetSellerURL(RegionID);
+                sellerURL = StoreRegionMap.GetSellerURL(RegionID, Plateform);
             }
             return sellerURL; 
         }
@@ -30,26 +31,28 @@ namespace ShopeeChat.SysData
         {
             if(null == buyerUrl)
             {
-                buyerUrl = StoreRegionMap.GetBuyerURL(RegionID);
+                buyerUrl = StoreRegionMap.GetBuyerURL(RegionID, Plateform);
             }
              return buyerUrl; 
         }
         public List<Store> Stores = new List<Store>();
-        public StoreRegion(String regionId,string region,string sellerUrl,string buyerUrl)
+        public StoreRegion(int plateform,String regionId,string region,string sellerUrl,string buyerUrl)
         {
             RegionID = regionId;
             RegionName = region;
             this.sellerURL = sellerUrl;
             this.buyerUrl = buyerUrl;
+            this.Plateform = plateform;
         }
         public StoreRegion() {
         }
-        public StoreRegion(StoreRegion region)
+        public StoreRegion(int plateform, StoreRegion region)
         {
             RegionID = region.RegionID;
             RegionName = region.RegionName;
             this.sellerURL = region.sellerURL;
             this.buyerUrl = region.buyerUrl;
+            this.Plateform = plateform;
         }
         public override string ToString()
         {

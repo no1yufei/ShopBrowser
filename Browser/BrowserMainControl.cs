@@ -26,52 +26,25 @@ namespace SharpBrowser {
 	/// </summary>
 	public partial class BrowserMainControl : UserControl {
 
-		public static BrowserMainControl Instance;
-        public static string Branding = "SharpBrowser";
+		//public static BrowserMainControl Instance;
+  //      public static string Branding = "SharpBrowser";
 		
         public BrowserMainControl() {
-
-			Instance = this;
-
+			//Instance = this;
 			InitializeComponent();
-
 			initBrowser();
-
 		}
 
 		private void MainForm_Load(object sender, EventArgs e) {
-
-			InitAppIcon();
 			InitHotkeys();
 		}
-
-		#region App Icon
-
-		/// <summary>
-		/// embedding the resource using the Visual Studio designer results in a blurry icon.
-		/// the best way to get a non-blurry icon for Windows 7 apps.
-		/// </summary>
-		private void InitAppIcon() {
-			//assembly = Assembly.GetAssembly(typeof(MainForm));
-			//Icon = new Icon(GetResourceStream("sharpbrowser.ico"), new Size(64, 64));
-		}
-		
-		public static Assembly assembly = null;
-		public Stream GetResourceStream(string filename, bool withNamespace = true) {
-			try {
-				return assembly.GetManifestResourceStream("SharpBrowser.Resources." + filename);
-			} catch (System.Exception ex) { }
-			return null;
-		}
-
-		#endregion
+	
 		/// <summary>
 		/// these hotkeys work when the user is focussed on the .NET form and its controls,
 		/// AND when the user is focussed on the browser (CefSharp portion)
 		/// </summary>
 		private void InitHotkeys()
 		{
-
 			// browser hotkeys
 			//KeyboardHandler.AddHotKey(this, CloseActiveTab, Keys.W, true);
 			//KeyboardHandler.AddHotKey(this, CloseActiveTab, Keys.Escape, true);
@@ -89,7 +62,9 @@ namespace SharpBrowser {
 
 
 		}
-
+		/// <summary>
+		/// 关闭所有Tab页面
+		/// </summary>
 		public void Clear()
 		{
 			List<TabInfo> tabs = new List<TabInfo>();
@@ -108,88 +83,30 @@ namespace SharpBrowser {
 		private TabInfo newTab;
 		private TabInfo downloadsTab;
         private string currentTitle;
-
-
+	
 		private HostHandler host;
-		private DownloadHandler dHandler;
-		private ContextMenuHandler mHandler;
-		//private LifeSpanHandler lHandler;
-		//private KeyboardHandler kHandler;
-		//private RequestHandler rHandler;
+
+	
 		/// <summary>
 		/// this is done just once, to globally initialize CefSharp/CEF
 		/// </summary>
-		private void initBrowser() {
-
-			//CefSharpSettings.LegacyJavascriptBindingEnabled = true;
-			//CefSharpSettings.WcfEnabled = false;
-
-			//CefSettings settings = new CefSettings();
-
-			//settings.RegisterScheme(new CefCustomScheme {
-			//	SchemeName = BrowserTabForm.InternalURL,
-			//	SchemeHandlerFactory = new SchemeHandlerFactory()
-			//});
-
-			//settings.UserAgent = BrowserTabForm.UserAgent;
-			//settings.AcceptLanguageList = BrowserTabForm.AcceptLanguage;
-
-			//settings.IgnoreCertificateErrors = true;
-			
-			//settings.CachePath = GetAppDir("Cache");
-
-			//Cef.Initialize(settings);
-
-			InitDownloads();
-
-			dHandler = new DownloadHandler(this);
-			
-			//mHandler = new ContextMenuHandler(this);
-		    //kHandler = new KeyboardHandler(this);
-			//rHandler = new RequestHandler(this);
+		private void initBrowser() 
+		{
+             InitDownloads();
 
 			host = new HostHandler(this);
 
-			AddNewBrowser(tabStrip1, BrowserTabForm.HomepageURL);
-
+			AddNewBrowser(tabStrip1, ChromeBrowser.HomepageURL);
 		}
 
-		
-
-
-		private static string GetAppDir(string name) {
-			string winXPDir = @"C:\Documents and Settings\All Users\Application Data\";
-			if (Directory.Exists(winXPDir)) {
-				return winXPDir + Branding + @"\" + name + @"\";
-			}
-			return @"C:\ProgramData\" + Branding + @"\" + name + @"\";
-
-		}
-
-		
-
-		public void AddBlankWindow() {
-
-			// open a new instance of the browser
-
-			ProcessStartInfo info = new ProcessStartInfo(Application.ExecutablePath, "");
-			//info.WorkingDirectory = workingDir ?? exePath.GetPathDir(true);
-			info.LoadUserProfile = true;
-
-			info.UseShellExecute = false;
-			info.RedirectStandardError = true;
-			info.RedirectStandardOutput = true;
-			info.RedirectStandardInput = true;
-
-			Process.Start(info);
-		}
-		public void AddBlankTab() {
+		public void AddBlankBrowserTab() 
+		{
 			AddNewBrowserTab("","");
 			//this.InvokeOnParent(delegate() {
 			//	TxtURL.Focus();
 			//});
 		}
-		private TabInfo getTabInfo(string url,string storename)
+		private TabInfo getBrowserTabInfo(string url,string storename)
 		{
 			if (url.Length > 0)
 			{
@@ -212,7 +129,7 @@ namespace SharpBrowser {
 		{
 			return (TabInfo)this.Invoke((Func<TabInfo>)delegate {
 
-				TabInfo newTab = getTabInfo(url, chromBbrowser.StoreName);
+				TabInfo newTab = getBrowserTabInfo(url, chromBbrowser.StoreName);
 				if(null == newTab)
 				{
 					BrowserTabStripItem tabStrip = new BrowserTabStripItem();
@@ -233,7 +150,7 @@ namespace SharpBrowser {
 		}
 		public TabInfo AddNewBrowserTab(string url,string storename, bool focusNewTab = true, string refererUrl = null) {
 			return (TabInfo)this.Invoke((Func<TabInfo>)delegate {
-			TabInfo newTab = getTabInfo(url, storename);
+			TabInfo newTab = getBrowserTabInfo(url, storename);
 				if (null == newTab)
 				{
 					BrowserTabStripItem tabStrip = new BrowserTabStripItem();
@@ -250,72 +167,35 @@ namespace SharpBrowser {
 		}
 		private TabInfo AddNewBrowser(BrowserTabStripItem tabStrip, String url) {
 			
-			BrowserTabForm browser = new BrowserTabForm(url);
-			browser.OpenTab = AddNewBrowserTab;
-			browser.CloseTab = CloseActiveTab;
-			browser.TitleChanged = setTabTitle;
-
-			// set layout
-			browser.Dock = DockStyle.Fill;
-			tabStrip.Controls.Add(browser);
-			browser.BringToFront();
-
-			// add events
-
-			browser.CurBrowser.DownloadHandler = dHandler;
-			//browser.CurBrowser.LifeSpanHandler = lHandler;
-			//browser.CurBrowser.KeyboardHandler = kHandler;
-			//browser.CurBrowser.RequestHandler = rHandler;
-
-			// new tab obj
-			TabInfo tab = new TabInfo {
-				IsOpen = true,
-				BrowserTab = browser,
-				Tab = tabStrip,
-				OrigURL = url,
-				CurURL = url,
-				Title = "新标签页",
-				DateCreated = DateTime.Now
-			};
-
-			// save tab obj in tabstrip
-			tabStrip.Tag = tab;
-
-			if (url.StartsWith(BrowserTabForm.InternalURL + ":"))
-			{
-				browser.CurBrowser.JavascriptObjectRepository.Register("host", host, true, BindingOptions.DefaultBinder);
-			}
-			return tab;
+			BrowserTabForm browserTabContent = new BrowserTabForm(url);
+			return initNewBrowserTabContent(tabStrip, browserTabContent);
 		}
 
 		private TabInfo AddNewBrowser(ChromeBrowser chromeBrowser, BrowserTabStripItem tabStrip, String url)
 		{
-
-			BrowserTabForm browser = new BrowserTabForm(chromeBrowser, url);
-			browser.OpenTab = AddNewBrowserTab;
-			browser.CloseTab = CloseActiveTab;
-			browser.TitleChanged = setTabTitle;
+			BrowserTabForm browserTabContent = new BrowserTabForm(chromeBrowser, url);
+			return initNewBrowserTabContent(tabStrip, browserTabContent);
+		}
+		private TabInfo initNewBrowserTabContent(BrowserTabStripItem tabStrip, BrowserTabForm browserTabContent)
+		{
+			browserTabContent.OpenTab = AddNewBrowserTab;
+			browserTabContent.CloseTab = CloseActiveTab;
+			browserTabContent.TitleChanged = setTabTitle;
 
 			// set layout
-			browser.Dock = DockStyle.Fill;
-			tabStrip.Controls.Add(browser);
-			browser.BringToFront();
+			browserTabContent.Dock = DockStyle.Fill;
+			tabStrip.Controls.Add(browserTabContent);
+			browserTabContent.BringToFront();
 
-			// add events
-
-			browser.CurBrowser.DownloadHandler = dHandler;
-			//browser.CurBrowser.LifeSpanHandler = lHandler;
-			//browser.CurBrowser.KeyboardHandler = kHandler;
-			//browser.CurBrowser.RequestHandler = rHandler;
 
 			// new tab obj
 			TabInfo tab = new TabInfo
 			{
 				IsOpen = true,
-				BrowserTab = browser,
+				BrowserTab = browserTabContent,
 				Tab = tabStrip,
-				OrigURL = url,
-				CurURL = url,
+				OrigURL = browserTabContent.InitURL,
+				CurURL = browserTabContent.InitURL,
 				Title = "新标签页",
 				DateCreated = DateTime.Now
 			};
@@ -323,9 +203,9 @@ namespace SharpBrowser {
 			// save tab obj in tabstrip
 			tabStrip.Tag = tab;
 
-			if (url.StartsWith(BrowserTabForm.InternalURL + ":"))
+			if (browserTabContent.InitURL.StartsWith(ChromeBrowser.InternalURL + ":"))
 			{
-				browser.CurBrowser.JavascriptObjectRepository.Register("host", host, true, BindingOptions.DefaultBinder);
+				browserTabContent.CurBrowser.JavascriptObjectRepository.Register("host", host, true, BindingOptions.DefaultBinder);
 			}
 			return tab;
 		}
@@ -371,7 +251,7 @@ namespace SharpBrowser {
 
 			// add a blank tab if the very last tab is closed!
 			if (TabPages.Items.Count <= 2) {
-				AddBlankTab();
+				AddBlankBrowserTab();
 				//e.Cancel = true;
 			}
 
@@ -437,16 +317,14 @@ namespace SharpBrowser {
 			}
 		}
 
-		
-
-
+	
 		private void OnTabsChanged(TabStripItemChangedEventArgs e) {
 
 
-			ChromiumWebBrowser browser = null;
+			BrowserTabForm tabContent = null;
 			try
 			{
-				browser = ((ChromiumWebBrowser)e.Item.Controls[0]);
+				tabContent = ((BrowserTabForm)e.Item.Controls[0]);
 			}
 			catch (System.Exception ex) { }
 
@@ -455,7 +333,7 @@ namespace SharpBrowser {
 			{
 				if (TabPages.SelectedItem == tabStripAdd)
 				{
-					AddBlankTab();
+					AddBlankBrowserTab();
 				}
 			}
 
@@ -465,21 +343,21 @@ namespace SharpBrowser {
 				{
 					downloadsTab = null;
 				}
-				if (browser != null)
+				if (tabContent != null)
 				{ 
-					browser.Dispose();
+					tabContent.Dispose();
 				}
 			}
 
 			if (e.ChangeType == BrowserTabStripItemChangeTypes.Changed)
 			{
-				//if (browser != null)
-				//{
-				//	if (currentFullURL != "about:blank")
-				//	{
-				//		browser.Focus();
-				//	}
-				//}
+				if (tabContent != null)
+				{
+					//if (tabContent != "about:blank")
+					{
+						tabContent.Focus();
+					}
+				}
 			}
 
 		}
@@ -598,13 +476,13 @@ namespace SharpBrowser {
 		
 
 		public void OpenDownloadsTab() {
-			if (downloadsTab != null && (downloadsTab.BrowserTab.CurBrowser.Address ==BrowserTabForm.DownloadsURL))
+			if (downloadsTab != null && (downloadsTab.BrowserTab.CurBrowser.Address == ChromeBrowser.DownloadPageURL))
 			{
 				TabPages.SelectedItem = downloadsTab.Tab;
 			}
 			else
 			{
-				downloadsTab = AddNewBrowserTab(BrowserTabForm.DownloadsURL,"");
+				downloadsTab = AddNewBrowserTab(ChromeBrowser.DownloadPageURL, "");
 			}
 		}
 

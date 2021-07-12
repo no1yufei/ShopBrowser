@@ -126,12 +126,13 @@ namespace SharpBrowser {
 
 			// if referer given
 			//var tab = myForm.GetTabByBrowser(chromiumWebBrowser);
-			//if (tab != null && tab.RefererURL != null) {
+			if (myForm != null && myForm.RefererURL != null)
+			{
 
-			//	// Set referer
-			//	request.SetReferrer(tab.RefererURL, ReferrerPolicy.Default);
+				// Set referer
+				request.SetReferrer(myForm.RefererURL, ReferrerPolicy.Default);
 
-			//}
+			}
 
 			return CefSharp.CefReturnValue.Continue;
 		}
@@ -202,7 +203,10 @@ namespace SharpBrowser {
 				return;
 			}
 
-
+			if(chromiumWebBrowser.Address != request.Url)
+			{
+				return;
+			}
 			// if NOT FOUND
 			if (code == 404) {
 
@@ -215,7 +219,7 @@ namespace SharpBrowser {
 				else {
 
 					// show offline "file not found" page
-					frame.LoadUrl(BrowserTabForm.FileNotFoundURL + "?path=" + request.Url.EncodeURL());
+					frame.LoadUrl(ChromeBrowser.FileNotFoundURL + "?path=" + request.Url.EncodeURL());
 				}
 
 			}
@@ -227,7 +231,7 @@ namespace SharpBrowser {
 				if (path.FileNotExists()) {
 
 					// show offline "file not found" page
-					frame.LoadUrl(BrowserTabForm.FileNotFoundURL + "?path=" + path.EncodeURL());
+					frame.LoadUrl(ChromeBrowser.FileNotFoundURL + "?path=" + path.EncodeURL());
 
 				}
 			}
@@ -238,7 +242,7 @@ namespace SharpBrowser {
 				if (code == 444 || (code >= 500 && code <= 599)) {
 
 					// show offline "cannot connect to server" page
-					frame.LoadUrl(BrowserTabForm.CannotConnectURL);
+					frame.LoadUrl(ChromeBrowser.CannotConnectURL);
 				}
 
 			}

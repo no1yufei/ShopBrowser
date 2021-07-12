@@ -20,10 +20,7 @@ namespace SharpBrowser {
 	}
 
 	public static class FileIconUtils {
-
-
 		// TOP LEVEL API
-
 		public static MemoryStream GetFileIcon(string name, FileIconSize size) {
 			Icon icon = FileIconUtils.IconFromExtension(name.GetAfter("."), size);
 			using (icon) {

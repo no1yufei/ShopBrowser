@@ -42,7 +42,6 @@
             this.localCkBox = new System.Windows.Forms.CheckBox();
             this.importCookieBtn = new System.Windows.Forms.Button();
             this.onlyCookieCkBox = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -92,6 +91,7 @@
             this.groupCBox.Name = "groupCBox";
             this.groupCBox.Size = new System.Drawing.Size(188, 20);
             this.groupCBox.TabIndex = 5;
+            this.groupCBox.SelectedIndexChanged += new System.EventHandler(this.groupCBox_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -113,7 +113,7 @@
             // 
             // addBtn
             // 
-            this.addBtn.Location = new System.Drawing.Point(80, 241);
+            this.addBtn.Location = new System.Drawing.Point(79, 239);
             this.addBtn.Name = "addBtn";
             this.addBtn.Size = new System.Drawing.Size(75, 23);
             this.addBtn.TabIndex = 8;
@@ -123,7 +123,7 @@
             // 
             // cancelBtn
             // 
-            this.cancelBtn.Location = new System.Drawing.Point(214, 241);
+            this.cancelBtn.Location = new System.Drawing.Point(214, 239);
             this.cancelBtn.Name = "cancelBtn";
             this.cancelBtn.Size = new System.Drawing.Size(75, 23);
             this.cancelBtn.TabIndex = 9;
@@ -164,23 +164,12 @@
             this.onlyCookieCkBox.UseVisualStyleBackColor = true;
             this.onlyCookieCkBox.Visible = false;
             // 
-            // label5
-            // 
-            this.label5.AutoEllipsis = true;
-            this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(78, 285);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(259, 41);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "*不能使用 手机号，邮箱和子母账号添加店铺，请使用店铺名称添加";
-            // 
             // AddStoreForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(370, 350);
+            this.ClientSize = new System.Drawing.Size(370, 284);
             this.ControlBox = false;
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.onlyCookieCkBox);
             this.Controls.Add(this.importCookieBtn);
             this.Controls.Add(this.localCkBox);
@@ -218,6 +207,5 @@
         private System.Windows.Forms.CheckBox localCkBox;
         private System.Windows.Forms.Button importCookieBtn;
         private System.Windows.Forms.CheckBox onlyCookieCkBox;
-        private System.Windows.Forms.Label label5;
     }
 }

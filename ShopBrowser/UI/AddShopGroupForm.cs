@@ -14,7 +14,17 @@ namespace ShopeeChat
 {
     public partial class AddShopGroupForm : Form
     {
-        public StoreGroup ShopGroup;
+        public StoreGroup shopGroup;
+        public StoreGroup ShopGroup {
+            set {
+                pfCBox.SelectedIndex = value.Plateform;
+                shopGroup = value;
+            }
+            get {
+                return shopGroup;
+            }
+        }
+
         public AddShopGroupForm()
         {
             InitializeComponent();
@@ -22,14 +32,15 @@ namespace ShopeeChat
 
         private void sureBtn_Click(object sender, EventArgs e)
         {
-            ShopGroup = new StoreGroup();
-            ShopGroup.ID = Guid.NewGuid();
-            ShopGroup.GroupName = groupNameTBox.Text;
-            ShopGroup.ProxyIP = serverTBox.Text;
-            ShopGroup.Port = (long)portNumDU.Value;
-            ShopGroup.ProxyUserName = userNameTBox.Text;
-            ShopGroup.Password = passwordTBox.Text;
-            ShopGroup.IsProxy = isProxyCkBox.Checked;
+            shopGroup = new StoreGroup();
+            shopGroup.Plateform = pfCBox.SelectedIndex;
+            shopGroup.ID = Guid.NewGuid();
+            shopGroup.GroupName = groupNameTBox.Text;
+            shopGroup.ProxyIP = serverTBox.Text;
+            shopGroup.Port = (long)portNumDU.Value;
+            shopGroup.ProxyUserName = userNameTBox.Text;
+            shopGroup.Password = passwordTBox.Text;
+            shopGroup.IsProxy = isProxyCkBox.Checked;
             Close();
         }
 

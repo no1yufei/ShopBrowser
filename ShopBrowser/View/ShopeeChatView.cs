@@ -120,12 +120,20 @@ namespace ShopChatPlus.View
             
             string baseURL = region.GetSellerURL();
             //curBrowser = //; showStoreWebBrowser(region, storeINfo);
-            if (storeINfo.LogStatus == Common.Shopee.API.Data.LoginStatus.Log_Succuss)
+            //if (storeINfo.LogStatus == Common.Shopee.API.Data.LoginStatus.Log_Succuss)
+            if(true)
             {
-                if(curStore != storeINfo)
+               
+                if (curStore != storeINfo)
                 {
+                    curStore = storeINfo;
+                    string url = baseURL.ToLower();
+                    if (curStore.Plateform == 1)
+                    {
+                        url = baseURL.ToLower().Contains(region.RegionID) ? baseURL + "/account/signin?next=" + "/webchat/conversations"
+                  : baseURL;
+                    }
                     
-                    string url = baseURL + "/account/signin?next=" + "/webchat/conversations";
                     //curBrowser.LoadUrl(url);
                     StoreGroup group = GroupConfigHelper.Instatce.GetStoreGroup(storeINfo);
                     string cacheDir = BrowerHelper.Instatce.GetCacheDir(group, storeINfo);
@@ -255,6 +263,15 @@ namespace ShopChatPlus.View
             {
                 MessageBox.Show("请先在左边[店铺导航栏]中选择一个账号！");
             }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+           
+            StoreGroup group = GroupConfigHelper.Instatce.GetStoreGroup(curStore);
+            PopBrowerForm pop = new PopBrowerForm(group, curStore,"www.baidu.com");
+            pop.WindowState = FormWindowState.Normal;
+            pop.Show();
         }
     }
 }

@@ -59,6 +59,8 @@ namespace ShopeeChat
             Console.SetOut(TextLogHelper.Instance);
             version = AccessControl.Instance.Version;
             //this.Text = "店大麦(ShopBrowser) 版本号:" + version + " " + AccessControl.Instance.UserLeveLName();
+            versionTSMI.Text = "版本"+version;
+            usernameTsLabel.Text = user+"("+ AccessControl.Instance.UserLeveLName() + ")";
             loadApp();
         }
 
@@ -382,7 +384,7 @@ namespace ShopeeChat
                             return;
                         }
 
-                        StoreRegion region = group.Regions.FirstOrDefault(p => p.RegionName == country);
+                        StoreRegion region = (StoreRegion)group.Regions.FirstOrDefault(p => p.RegionName == country);
                         if (region == null)
                         {
                             //region = new Region(country, datas["sellerurl"][i]);
@@ -390,16 +392,19 @@ namespace ShopeeChat
                             MessageBox.Show("不正确的地区名称:" + country);
                             return;
                         }
+                        StoreRegionMap regionmap = new StoreRegionMap();
 
-                        Store strinfo = region.Stores.FirstOrDefault(p => p.UserName == datas["usename"][i]);
+                        Store strinfo = (Store)region.Stores.FirstOrDefault(p => p.UserName == datas["usename"][i]);
                         if (null == strinfo)
                         {
-                            strinfo = new Store(StoreRegionMap.GetRegionID(datas["region"][i]),datas["usename"][i], datas["password"][i]);
+           
+
+                            strinfo = new Store(1,StoreRegionMap.GetRegionID(datas["region"][i]),datas["usename"][i], datas["password"][i]);
                             region.Stores.Add(strinfo);
                         }
                         else
                         {
-                            strinfo.SetValue(StoreRegionMap.GetRegionID(datas["region"][i]), datas["usename"][i], datas["password"][i]);
+                            strinfo.SetValue(1,StoreRegionMap.GetRegionID(datas["region"][i]), datas["usename"][i], datas["password"][i]);
                         }
                     }
                     LogInForm logForm = new LogInForm("用户验证",true);
@@ -570,8 +575,8 @@ namespace ShopeeChat
                     string URL = input.Code;
                     StoreRegion region = input.Region;
                     StoreGroup group = node.Tag as  StoreGroup;
-                    PopBrowerForm popBrower = new PopBrowerForm(group, region, URL);
-                    popBrower.Show();
+                   // PopBrowerForm popBrower = new PopBrowerForm(group, region, URL);
+                   // popBrower.Show();
                 }
             }
             else

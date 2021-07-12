@@ -6,16 +6,9 @@ using SharpBrowser.Factory;
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
-using Control = System.Windows.Forms.Control;
 
 namespace Common.Browser
 
@@ -32,11 +25,16 @@ namespace Common.Browser
             get { return proxyIp; }
            
          }
+        private Dictionary<int, DownloadItem> downloads = new Dictionary<int, DownloadItem>();
+        public List<DownloadItem> DownloadItems
+        {
+            get { return downloads.Values.ToList(); }
+        }
         string cacheDir;
         string initUrl;
 
         List<CefSharp.Cookie> cookies = new List<CefSharp.Cookie>();
-        private readonly static CefSettings cefSettings = new CefSettings();
+        private  static CefSettings globalCefSettings = new CefSettings();
         private static bool isGlobalInitilized = false;
 
         private string appPath = Path.GetDirectoryName(Application.ExecutablePath) + @"\";
@@ -45,60 +43,14 @@ namespace Common.Browser
         public static string HomepageURL = "https://www.baidu.com";
         public static string NewTabURL = "about:blank";
         public static string InternalURL = "sharpbrowser";
-        public static string DownloadsURL = "sharpbrowser://storage/downloads.html";
+        public static string DownloadPageURL = "sharpbrowser://storage/downloads.html";
         public static string FileNotFoundURL = "sharpbrowser://storage/errors/notFound.html";
         public static string CannotConnectURL = "sharpbrowser://storage/errors/cannotConnect.html";
         public static string SearchURL = "https://www.baidu.com/s?wd=";
 
-        public static void GlobalInitBrowser(string rootCachePath, string userAgent=null)
-        {
-            if(!isGlobalInitilized)
-            {
-                if(null != userAgent)
-                {
-                    cefSettings.UserAgent = userAgent;
-                }
-
-                cefSettings.RootCachePath = rootCachePath;
-                cefSettings.CachePath = rootCachePath + "/default/";
-                cefSettings.PersistSessionCookies = true;
-                //cefSettings.PersistUserPreferences = true;
-                cefSettings.LogSeverity = LogSeverity.Default;
-                //settings.LocalesDirPath = GetCacheDir();
-                //settings.LogFile = logFilePath;
-                //settings.Locale = "zh-CN";
-                // CefSharpSettings.LegacyJavascriptBindingEnabled = true;
-
-                //原始的配置
-                //CefSharpSettings.LegacyJavascriptBindingEnabled = true;
-                CefSharpSettings.WcfEnabled = false;
-
-                //CefSettings settings = new CefSettings();
-
-                cefSettings.RegisterScheme(new CefCustomScheme
-                {
-                    SchemeName = InternalURL,
-                    SchemeHandlerFactory = new SchemeHandlerFactory()
-                });
-
-                //cefSettings.UserAgent = BrowserTabForm.UserAgent;
-                //cefSettings.AcceptLanguageList = AcceptLanguage;
-
-                cefSettings.IgnoreCertificateErrors = true;
-
-                //settings.CachePath = GetAppDir("Cache");
-                cefSettings.MultiThreadedMessageLoop = true;
-                Cef.Initialize(cefSettings);
-                isGlobalInitilized = true;
-            }
-
-        }
+      
  
-        public string ControlName
-        {
-            set { Name = value; }
-            get { return Name; }
-        }
+       
        
         Interaction interaction = new Interaction((result) =>
         {
@@ -114,7 +66,9 @@ namespace Common.Browser
 
         }
 
-        public ChromeBrowser():base()
+        public string RefererURL = "";
+        public ChromeBrowser()
+            :base(string.Empty)
         {
             this.proxyIp = null;
             this.name =  Guid.NewGuid().ToString("N") ;
@@ -123,7 +77,8 @@ namespace Common.Browser
             this.initUrl = string.Empty;
             init();
         }
-        public ChromeBrowser(string url, String cachedir, string storename, string name, string cookies, ProxyIP ipinfo = null): base(string.Empty)
+        public ChromeBrowser(string url, String cachedir, string storename, string name, string cookies, ProxyIP ipinfo = null)
+            : base(string.Empty)
         {
             this.proxyIp = ipinfo;
             this.name = name==null? Guid.NewGuid().ToString("N"):name;
@@ -134,7 +89,8 @@ namespace Common.Browser
             importCookies(url,cookies);
         }
 
-        public ChromeBrowser(ChromeBrowser prevBrowser,string url):base(string.Empty)
+        public ChromeBrowser(ChromeBrowser prevBrowser,string url)
+            :base(string.Empty)
         {
             this.proxyIp = prevBrowser.proxyIp;
             this.name = Guid.NewGuid().ToString("N");
@@ -202,6 +158,11 @@ namespace Common.Browser
                 }
             }
         }
+        public new void Load(string url)
+        {
+            FrameLoadEnd += webBrower_FrameLoadEnd;
+            base.Load(url);
+        }
         public void LoadJS(string jsString)
         {
             try
@@ -224,13 +185,32 @@ namespace Common.Browser
  
         void webBrower_FrameLoadEnd(object sender, CefSharp.FrameLoadEndEventArgs e)
         {
-            ChromiumWebBrowser webBrower = sender as ChromiumWebBrowser;
-            webBrower.FrameLoadEnd -= webBrower_FrameLoadEnd;
-            //webBrower.AddressChanged += WebBrower_AddressChanged;
-            //FrameLoadEnd += webBrower_FrameLoadEnd2;
-            webBrower.GetBrowser().MainFrame.ExecuteJavaScriptAsync((String)webBrower.Tag);
+            //ChromiumWebBrowser webBrower = sender as ChromiumWebBrowser;
+            //webBrower.FrameLoadEnd -= webBrower_FrameLoadEnd;
+            ////webBrower.AddressChanged += WebBrower_AddressChanged;
+            ////FrameLoadEnd += webBrower_FrameLoadEnd2;
+            //webBrower.GetBrowser().MainFrame.ExecuteJavaScriptAsync((String)webBrower.Tag);
+            if(null != CookieDataRecieved)
+            {
+                CookieVisitor visitor = new CookieVisitor(e.Url);
+                visitor.SendCookie += CookieDataRecieved;
+                ICookieManager cookieManagesr = this.GetCookieManager();
+                cookieManagesr.VisitAllCookies(visitor);
+            }
+            if(CookieDataRecieved == null && null != PageLoadCompleted)
+            {
+                PageLoadCompleted(e.Url);
+            }
         }
 
+        //private void visitor_SendCookie(string url,string name,string value,int count,int total)
+        //{
+        //    //obj.Domain.TrimStart('.') + "^" +
+        //    // string cookies = obj.Name + ":" + obj.Value + ";";
+        //    Console.WriteLine("URL:" + url);
+        //    Console.WriteLine("第"+count+"个，共" +total+"个。");
+        //    Console.WriteLine(name+"=" + value);
+        //}
         private void WebBrower_AddressChanged(object sender, AddressChangedEventArgs e)
         {
             ChromiumWebBrowser webBrower = sender as ChromiumWebBrowser;
@@ -246,19 +226,78 @@ namespace Common.Browser
             configureBrowser();
             JavascriptObjectRepository.Settings.LegacyBindingEnabled = true;
             JavascriptObjectRepository.Register("interaction", interaction, isAsync: false, options: BindingOptions.DefaultBinder);
-            initEventHandler();
-            initRequestContext();
             initHandler();
+            initRequestContext();
+            initEventHandler();
             initHotKey();
         }
         private void initRequestContext()
         {
             RequestContextSettings requestContextSettings = new RequestContextSettings();
             requestContextSettings.PersistSessionCookies = true;
-            //requestContextSettings.PersistUserPreferences = true;
-            requestContextSettings.CachePath = this.cacheDir.Contains(":") ? this.cacheDir : cefSettings.RootCachePath+"/default/";
+            requestContextSettings.PersistUserPreferences = true;
+
+            if (cacheDir != null && cacheDir != string.Empty)
+            {
+                //requestContextSettings.CachePath = this.cacheDir.Contains(":") ? this.cacheDir : cefSettings.RootCachePath + "/default/";
+                requestContextSettings.CachePath = this.cacheDir;
+            }
             RequestContext = new RequestContext(requestContextSettings);
             Console.WriteLine("当前页面缓存路径：" + requestContextSettings.CachePath);
+        }
+        /// <summary>
+        /// Only once for whole programe
+        /// </summary>
+        /// <param name="rootCachePath"></param>
+        /// <param name="userAgent"></param>
+        public static void GlobalInitBrowser(string rootCachePath, string userAgent = null)
+        {
+            if (!isGlobalInitilized)
+            {
+                CefSharpSettings.LegacyJavascriptBindingEnabled = true;
+                CefSharpSettings.WcfEnabled = false;
+                CefSettings cefSettings = new CefSettings();
+               
+                cefSettings.RegisterScheme(new CefCustomScheme
+                {
+                    SchemeName = InternalURL,
+                    SchemeHandlerFactory = new MySchemeHandlerFactory()
+                });
+
+
+                if (null != userAgent)
+                {
+                    cefSettings.UserAgent = userAgent;
+                }
+
+                cefSettings.RootCachePath = rootCachePath;
+                cefSettings.CachePath = rootCachePath + "/default/";
+                cefSettings.PersistSessionCookies = true;
+                cefSettings.PersistUserPreferences = true;
+                //cefSettings.LogSeverity = LogSeverity.Default;
+                //settings.LocalesDirPath = GetCacheDir();
+                //settings.LogFile = logFilePath;
+                //settings.Locale = "zh-CN";
+
+
+                //CefSettings settings = new CefSettings();
+
+
+                //settings.RegisterScheme(new CefCustomScheme {
+                //	SchemeName = BrowserTabForm.InternalURL,
+                //	SchemeHandlerFactory = new SchemeHandlerFactory()
+                //});
+                //cefSettings.UserAgent = BrowserTabForm.UserAgent;
+                //cefSettings.AcceptLanguageList = AcceptLanguage;
+
+                cefSettings.IgnoreCertificateErrors = true;
+
+                //settings.CachePath = GetAppDir("Cache");
+                cefSettings.MultiThreadedMessageLoop = true;
+                isGlobalInitilized = true;
+                ChromeBrowser.globalCefSettings = cefSettings;
+            }
+
         }
         /// <summary>
         /// this is done every time a new tab is openede
@@ -266,8 +305,8 @@ namespace Common.Browser
         private void configureBrowser()
         {
             BrowserSettings config = new BrowserSettings();
-            config.FileAccessFromFileUrls = CefState.Enabled;// (!CrossDomainSecurity).ToCefState();
-            config.UniversalAccessFromFileUrls = CefState.Enabled; //(!CrossDomainSecurity).ToCefState();
+            config.FileAccessFromFileUrls = CefState.Disabled;// (!CrossDomainSecurity).ToCefState();
+            config.UniversalAccessFromFileUrls = CefState.Disabled; //(!CrossDomainSecurity).ToCefState();
             config.WebSecurity = CefState.Enabled; //WebSecurity.ToCefState();
             config.WebGl = CefState.Enabled;//WebGL.ToCefState();
             config.Databases = CefState.Enabled;
@@ -275,6 +314,8 @@ namespace Common.Browser
             config.LocalStorage = CefState.Enabled;
             config.Plugins = CefState.Enabled;
             config.TabToLinks = CefState.Enabled;
+
+
 
             config.ApplicationCache = CefState.Enabled;
 
@@ -287,7 +328,8 @@ namespace Common.Browser
             
             RequestHandler = new RequestHandler(this);
             LifeSpanHandler = new LifeSpanHandler(this);
-
+            DownloadHandler = new DownloadHandler(this);
+ 
         }
         private void initEventHandler()
         {
@@ -354,6 +396,74 @@ namespace Common.Browser
         {
             base.Dispose();
         }
+        public delegate void DownloadItemUpdateHandler(DownloadItem item);
+        public DownloadItemUpdateHandler DownloadItemChanged;
+        public void UpdateDownloadItem(DownloadItem item)
+        {
+            if(null != DownloadItemChanged)
+            {
+                DownloadItemChanged(item);
+            }
+            if(downloads.ContainsKey(item.Id))
+            {
+                downloads[item.Id]= item;
+            }
+            else
+            {
+                downloads.Add(item.Id,item);
+            }
+            
+        }
+
+        public string CalcDownloadPath(DownloadItem item)
+        {
+            return item.SuggestedFileName;
+        }
+
+        public bool DownloadsInProgress()
+        {
+            foreach (DownloadItem item in downloads.Values)
+            {
+                if (item.IsInProgress)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public delegate void PageLoadCompletedHandler(string url);
+        public PageLoadCompletedHandler PageLoadCompleted;
+        public delegate void CookieDataHandler(string url, string name, string value, int count, int total);
+        public CookieDataHandler CookieDataRecieved;
+    }
+
+    public class CookieVisitor : CefSharp.ICookieVisitor
+    {
+        public event ChromeBrowser.CookieDataHandler SendCookie;
+        string url;
+        public CookieVisitor(string url)
+        {
+            this.url = url;
+        }
+        public void Dispose()
+        {
+
+        }
+
+        public bool Visit(Cookie cookie, int count, int total, ref bool deleteCookie)
+        {
+            deleteCookie = false;
+            if (SendCookie != null)
+            {
+                SendCookie(url,cookie.Name,cookie.Value,count,total);
+            }
+
+            return true;
+
+        }
+
+
+
     }
     //public class ChromeTest
     //{

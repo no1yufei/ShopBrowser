@@ -7,6 +7,7 @@ namespace ShopeeChat.SysData
 {
     public class StoreGroup
     {
+        public int Plateform = 1;
         public Guid ID = Guid.NewGuid();
         public string GroupName = "默认店群";
         public bool IsProxy;
